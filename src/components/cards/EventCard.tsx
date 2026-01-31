@@ -2,22 +2,42 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { Calendar, MapPin, Video, Clock, Users } from 'lucide-react'
 
+export type EventType = 'workshop' | 'meeting' | 'panel' | 'social' | 'conference'
+
 export interface Event {
   id: string
   title: string
-  slug: string
+  slug?: string
   description?: string
   date: string
   endDate?: string
   time?: string
   location?: string
+  type?: EventType
   isVirtual?: boolean
   virtualUrl?: string
   registrationUrl?: string
   capacity?: number
   attendees?: number
+  organizer?: { name: string; slug: string }
   image?: { url: string; alt: string }
   tags?: string[]
+}
+
+const eventTypeLabels: Record<EventType, string> = {
+  workshop: 'Workshop',
+  meeting: 'Meeting',
+  panel: 'Panel',
+  social: 'Social',
+  conference: 'Conference',
+}
+
+const eventTypeColors: Record<EventType, string> = {
+  workshop: 'var(--color-teal)',
+  meeting: 'var(--color-dot)',
+  panel: 'var(--color-gold)',
+  social: 'var(--color-magenta)',
+  conference: 'var(--color-ink)',
 }
 
 interface EventCardProps {
@@ -42,6 +62,8 @@ function isUpcoming(dateString: string): boolean {
 export function EventCard({ event, variant = 'default', className }: EventCardProps) {
   const { day, month, weekday } = formatEventDate(event.date)
   const upcoming = isUpcoming(event.date)
+  const isVirtual = event.isVirtual || event.location?.toLowerCase().includes('virtual') || event.location?.toLowerCase().includes('zoom')
+  const eventUrl = event.slug ? `/events/${event.slug}` : event.registrationUrl || '#'
 
   if (variant === 'featured') {
     return (
@@ -70,13 +92,21 @@ export function EventCard({ event, variant = 'default', className }: EventCardPr
             {/* Content */}
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                {event.isVirtual ? (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-[var(--color-teal)] text-white text-xs font-mono uppercase tracking-wider rounded-md">
+                {event.type && (
+                  <span
+                    className="inline-flex items-center gap-1 px-2 py-1 text-white text-xs font-mono uppercase tracking-wider rounded-md"
+                    style={{ backgroundColor: eventTypeColors[event.type] }}
+                  >
+                    {eventTypeLabels[event.type]}
+                  </span>
+                )}
+                {isVirtual ? (
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/20 text-white text-xs font-mono uppercase tracking-wider rounded-md">
                     <Video className="w-3 h-3" />
                     Virtual
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-[var(--color-gold)] text-[var(--color-ink)] text-xs font-mono uppercase tracking-wider rounded-md">
+                  <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/20 text-white text-xs font-mono uppercase tracking-wider rounded-md">
                     <MapPin className="w-3 h-3" />
                     In Person
                   </span>
@@ -136,7 +166,7 @@ export function EventCard({ event, variant = 'default', className }: EventCardPr
   if (variant === 'compact') {
     return (
       <Link
-        href={`/events/${event.slug}`}
+        href={eventUrl}
         className={cn(
           'flex items-center gap-4 p-4 rounded-xl bg-[var(--color-paper)] border border-[var(--color-mist)] hover-lift hover-border-teal group',
           !upcoming && 'opacity-60',
@@ -159,7 +189,7 @@ export function EventCard({ event, variant = 'default', className }: EventCardPr
             {event.title}
           </h3>
           <div className="flex items-center gap-2 text-xs text-[var(--color-warm-gray)]">
-            {event.isVirtual ? (
+            {isVirtual ? (
               <span className="flex items-center gap-1">
                 <Video className="w-3 h-3" />
                 Virtual
@@ -191,7 +221,7 @@ export function EventCard({ event, variant = 'default', className }: EventCardPr
   // Default variant
   return (
     <Link
-      href={`/events/${event.slug}`}
+      href={eventUrl}
       className={cn(
         'rounded-2xl overflow-hidden bg-[var(--color-paper)] border border-[var(--color-mist)] hover-lift hover-border-teal group block',
         !upcoming && 'opacity-70',
@@ -216,7 +246,18 @@ export function EventCard({ event, variant = 'default', className }: EventCardPr
           {/* Content */}
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              {event.isVirtual ? (
+              {event.type && (
+                <span
+                  className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-mono uppercase tracking-wider rounded"
+                  style={{
+                    backgroundColor: `${eventTypeColors[event.type]}15`,
+                    color: eventTypeColors[event.type],
+                  }}
+                >
+                  {eventTypeLabels[event.type]}
+                </span>
+              )}
+              {isVirtual ? (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--color-teal)]/10 text-[var(--color-teal)] text-xs font-mono uppercase tracking-wider rounded">
                   <Video className="w-3 h-3" />
                   Virtual
@@ -246,10 +287,15 @@ export function EventCard({ event, variant = 'default', className }: EventCardPr
                   {event.time}
                 </span>
               )}
-              {event.location && !event.isVirtual && (
+              {event.location && !isVirtual && (
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5" />
                   {event.location}
+                </span>
+              )}
+              {event.organizer && (
+                <span className="flex items-center gap-1">
+                  <span>by {event.organizer.name}</span>
                 </span>
               )}
             </div>

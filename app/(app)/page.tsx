@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { Hero } from '@/components/Hero'
 import { MemberCard } from '@/components/members/MemberCard'
-import { ImpactCard } from '@/components/impact/ImpactCard'
 import { PolicyBanner } from '@/components/home/PolicyBanner'
+import { ImpactDashboard } from '@/components/home/ImpactDashboard'
 
 // Placeholder data - will be replaced with Payload queries
 const featuredMembers = [
@@ -44,42 +44,6 @@ const featuredMembers = [
   },
 ]
 
-const recentImpact = [
-  {
-    id: '1',
-    title: 'Investigation leads to new city oversight requirements for contracting',
-    slug: 'city-oversight-reform',
-    excerpt: 'A collaborative investigation documented systematic failures in city contracting that led to new transparency requirements passed unanimously by the Board of Supervisors.',
-    member: { name: 'SF Public Press', slug: 'sf-public-press' },
-    impactType: 'policy' as const,
-    impactDescription: 'Board passed Resolution 25-1847 requiring quarterly public reporting on contracts over $500k.',
-    publishedDate: '2025-12-15',
-    url: 'https://sfpublicpress.org',
-    featured: true,
-  },
-  {
-    id: '2',
-    title: 'Mission Local wins California Journalism Award for housing series',
-    slug: 'housing-series-award',
-    excerpt: 'In-depth reporting on displacement and housing policy earns statewide recognition.',
-    member: { name: 'Mission Local', slug: 'mission-local' },
-    impactType: 'recognition' as const,
-    impactDescription: 'California News Publishers Association award for public service journalism.',
-    publishedDate: '2025-11-20',
-    url: 'https://missionlocal.org',
-  },
-  {
-    id: '3',
-    title: 'Coverage connects 200+ families to rental assistance',
-    slug: 'rental-assistance-impact',
-    excerpt: 'Reporting on city rental assistance programs in Spanish and English reached families who didn\'t know help was available.',
-    member: { name: 'El Tecolote', slug: 'el-tecolote' },
-    impactType: 'resources' as const,
-    impactDescription: 'City confirmed 214 applications traced to El Tecolote coverage.',
-    publishedDate: '2025-10-08',
-    url: 'https://eltecolote.org',
-  },
-]
 
 export default function HomePage() {
   return (
@@ -122,43 +86,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Impact Section */}
-      <section className="section section-cream">
-        <div className="container">
-          <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <h2 className="display-md mb-2">
-                Recent Impact
-              </h2>
-              <p className="text-[var(--color-warm-gray)] text-lg">
-                Stories from our coalition that led to real outcomes.
-              </p>
-            </div>
-            <Link
-              href="/impact"
-              className="text-[var(--color-teal)] font-semibold flex items-center gap-2 hover:gap-3 transition-all"
-            >
-              See all impact stories
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </header>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Featured Impact Card */}
-            <div className="lg:col-span-2">
-              <ImpactCard story={recentImpact[0]} featured />
-            </div>
-            {/* Smaller Cards */}
-            <div className="flex flex-col gap-6">
-              {recentImpact.slice(1).map((story) => (
-                <ImpactCard key={story.id} story={story} compact />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Impact Dashboard */}
+      <ImpactDashboard />
 
       {/* CTA Section */}
       <section className="section section-paper">
