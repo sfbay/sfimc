@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ExternalLink } from 'lucide-react'
 
 export interface Publication {
@@ -36,13 +37,16 @@ export function PublicationCard({ publication, variant = 'default', className }:
           {/* Logo */}
           <div className="w-20 h-20 bg-[var(--color-charcoal)] rounded-2xl flex items-center justify-center mb-6 border border-white/10 group-hover:border-[var(--color-dot)]/50 transition-colors">
             {publication.logo ? (
-              <img
+              <Image
                 src={publication.logo.url}
                 alt={publication.logo.alt}
-                className="w-14 h-14 object-contain"
+                width={56}
+                height={56}
+                className="object-contain"
+                loading="lazy"
               />
             ) : (
-              <span className="text-3xl font-bold text-[var(--color-dot)]">
+              <span className="text-3xl font-bold text-[var(--color-dot)]" aria-hidden="true">
                 {publication.name.charAt(0)}
               </span>
             )}
@@ -118,13 +122,16 @@ export function PublicationCard({ publication, variant = 'default', className }:
         {/* Logo */}
         <div className="w-12 h-12 bg-[var(--color-cream)] rounded-xl flex-shrink-0 flex items-center justify-center border border-[var(--color-mist)] group-hover:border-[var(--color-dot)] transition-colors">
           {publication.logo ? (
-            <img
+            <Image
               src={publication.logo.url}
               alt={publication.logo.alt}
-              className="w-8 h-8 object-contain"
+              width={32}
+              height={32}
+              className="object-contain"
+              loading="lazy"
             />
           ) : (
-            <span className="text-lg font-bold text-[var(--color-dot)] opacity-50">
+            <span className="text-lg font-bold text-[var(--color-dot)] opacity-50" aria-hidden="true">
               {publication.name.charAt(0)}
             </span>
           )}
@@ -170,13 +177,16 @@ export function PublicationCard({ publication, variant = 'default', className }:
       {/* Logo */}
       <div className="w-16 h-16 bg-[var(--color-cream)] rounded-xl flex items-center justify-center mb-4 border border-[var(--color-mist)] group-hover:border-[var(--color-dot)] transition-colors">
         {publication.logo ? (
-          <img
+          <Image
             src={publication.logo.url}
             alt={publication.logo.alt}
-            className="w-12 h-12 object-contain"
+            width={48}
+            height={48}
+            className="object-contain"
+            loading="lazy"
           />
         ) : (
-          <span className="text-2xl font-bold text-[var(--color-dot)] opacity-50">
+          <span className="text-2xl font-bold text-[var(--color-dot)] opacity-50" aria-hidden="true">
             {publication.name.charAt(0)}
           </span>
         )}

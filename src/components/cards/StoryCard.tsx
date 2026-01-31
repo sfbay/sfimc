@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ExternalLink, Clock } from 'lucide-react'
 
 export interface Story {
@@ -61,15 +62,18 @@ export function StoryCard({
         {/* Image */}
         <div className="aspect-[16/9] relative overflow-hidden">
           {story.image ? (
-            <img
+            <Image
               src={story.image.url}
               alt={story.image.alt}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+              />
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-charcoal)] to-[var(--color-ink)]">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full bg-gradient-dot-teal opacity-20" />
+                <div className="w-24 h-24 rounded-full bg-gradient-dot-teal opacity-20" aria-hidden="true" />
               </div>
             </div>
           )}
@@ -108,14 +112,17 @@ export function StoryCard({
             {showSource && (
               <div className="flex items-center gap-2">
                 {story.source.logo ? (
-                  <img
+                  <Image
                     src={story.source.logo.url}
                     alt={story.source.logo.alt}
-                    className="w-5 h-5 rounded object-contain"
+                    width={20}
+                    height={20}
+                    className="rounded object-contain"
+                    loading="lazy"
                   />
                 ) : (
                   <div className="w-5 h-5 rounded bg-[var(--color-dot)]/20 flex items-center justify-center">
-                    <span className="text-xs font-bold text-[var(--color-dot)]">
+                    <span className="text-xs font-bold text-[var(--color-dot)]" aria-hidden="true">
                       {story.source.name.charAt(0)}
                     </span>
                   </div>
@@ -156,16 +163,19 @@ export function StoryCard({
         )}
       >
         {/* Image */}
-        <div className="w-28 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--color-cream)]">
+        <div className="w-28 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--color-cream)] relative">
           {story.image ? (
-            <img
+            <Image
               src={story.image.url}
               alt={story.image.alt}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
+              fill
+              sizes="112px"
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-gradient-dot-teal opacity-20" />
+              <div className="w-10 h-10 rounded-full bg-gradient-dot-teal opacity-20" aria-hidden="true" />
             </div>
           )}
         </div>
@@ -235,14 +245,17 @@ export function StoryCard({
       {/* Image */}
       <div className="aspect-[3/2] relative overflow-hidden bg-[var(--color-cream)]">
         {story.image ? (
-          <img
+          <Image
             src={story.image.url}
             alt={story.image.alt}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-gradient-dot-teal opacity-20" />
+            <div className="w-16 h-16 rounded-full bg-gradient-dot-teal opacity-20" aria-hidden="true" />
           </div>
         )}
 
@@ -273,14 +286,18 @@ export function StoryCard({
           {showSource && (
             <div className="flex items-center gap-2">
               {story.source.logo ? (
-                <img
+                <Image
                   src={story.source.logo.url}
                   alt={story.source.logo.alt}
-                  className="w-4 h-4 rounded object-contain"
+                  width={16}
+                  height={16}
+                  className="rounded object-contain"
+                  loading="lazy"
+                  unoptimized={story.source.logo.url.startsWith('http')}
                 />
               ) : (
                 <div className="w-4 h-4 rounded bg-[var(--color-dot)]/10 flex items-center justify-center">
-                  <span className="text-[10px] font-bold text-[var(--color-dot)]">
+                  <span className="text-[10px] font-bold text-[var(--color-dot)]" aria-hidden="true">
                     {story.source.name.charAt(0)}
                   </span>
                 </div>

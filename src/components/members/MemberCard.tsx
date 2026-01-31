@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ExternalLink } from 'lucide-react'
+import Image from 'next/image'
 
 interface Member {
   id: string
@@ -22,16 +22,19 @@ export function MemberCard({ member }: MemberCardProps) {
       href={`/members/${member.slug}`}
       className="card hover-lift hover-border-dot p-6 flex flex-col h-full group relative overflow-hidden"
     >
-      {/* Logo Placeholder */}
-      <div className="w-16 h-16 bg-[var(--color-cream)] rounded-xl flex items-center justify-center mb-4 border border-[var(--color-mist)] group-hover:border-[var(--color-dot)] transition-colors">
+      {/* Logo */}
+      <div className="w-16 h-16 bg-[var(--color-cream)] rounded-xl flex items-center justify-center mb-4 border border-[var(--color-mist)] group-hover:border-[var(--color-dot)] transition-colors relative overflow-hidden">
         {member.logo ? (
-          <img
+          <Image
             src={member.logo.url}
             alt={member.logo.alt}
-            className="w-12 h-12 object-contain"
-          />
+            width={48}
+            height={48}
+            className="object-contain"
+            loading="lazy"
+                      />
         ) : (
-          <span className="text-2xl font-bold text-[var(--color-dot)] opacity-50">
+          <span className="text-2xl font-bold text-[var(--color-dot)] opacity-50" aria-hidden="true">
             {member.name.charAt(0)}
           </span>
         )}

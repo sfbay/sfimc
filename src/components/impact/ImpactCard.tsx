@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ImpactTag, type ImpactType } from './ImpactTag'
 import { ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -35,14 +36,17 @@ export function ImpactCard({ story, featured = false, compact = false }: ImpactC
         {/* Image placeholder area */}
         <div className="aspect-[16/9] bg-[var(--color-charcoal)] relative hover-img-zoom">
           {story.image ? (
-            <img
+            <Image
               src={story.image.url}
               alt={story.image.alt}
-              className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
+              loading="lazy"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-dot-teal opacity-20" />
+              <div className="w-20 h-20 rounded-full bg-gradient-dot-teal opacity-20" aria-hidden="true" />
             </div>
           )}
           {/* Gradient overlay */}
