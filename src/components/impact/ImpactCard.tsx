@@ -31,22 +31,24 @@ export function ImpactCard({ story, featured = false, compact = false }: ImpactC
 
   if (featured) {
     return (
-      <article className="card card-dark overflow-hidden group h-full">
+      <article className="card card-dark overflow-hidden group h-full hover-lift">
         {/* Image placeholder area */}
-        <div className="aspect-[16/9] bg-[var(--color-charcoal)] relative">
+        <div className="aspect-[16/9] bg-[var(--color-charcoal)] relative hover-img-zoom">
           {story.image ? (
             <img
               src={story.image.url}
               alt={story.image.alt}
-              className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-80 transition-opacity"
+              className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-[var(--color-warm-gray)]">
-              <span className="text-sm font-mono">Featured Photo</span>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full bg-gradient-dot-teal opacity-20" />
             </div>
           )}
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)] via-[var(--color-ink)]/50 to-transparent" />
+          {/* Tinted corner effect */}
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-[var(--color-dot)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
 
         <div className="p-6 lg:p-8">
@@ -102,13 +104,16 @@ export function ImpactCard({ story, featured = false, compact = false }: ImpactC
   // Compact variant
   return (
     <article className={cn(
-      'card overflow-hidden group flex flex-col h-full',
+      'card overflow-hidden group flex flex-col h-full hover-lift hover-border-teal relative',
       compact ? 'p-5' : 'p-6'
     )}>
+      {/* Left accent bar */}
+      <div className="absolute top-0 left-0 bottom-0 w-1 bg-gradient-teal-gold scale-y-0 group-hover:scale-y-100 transition-transform origin-top" />
+
       <ImpactTag type={story.impactType} className="mb-3 self-start" />
 
       <h3 className={cn(
-        'font-[family-name:var(--font-display)] font-semibold text-[var(--color-ink)] mb-2 leading-tight',
+        'font-[family-name:var(--font-display)] font-semibold text-[var(--color-ink)] mb-2 leading-tight group-hover:text-[var(--color-teal)] transition-colors',
         compact ? 'text-base' : 'text-lg'
       )}>
         {story.title}
