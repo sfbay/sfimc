@@ -1223,15 +1223,552 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ============================================================
+   TYPOGRAPHY DYNAMICS
+   Animated text reveals, hover effects, and emphasis
+   ============================================================ */
+
+/* Split text animations - apply to container, JS adds .char spans */
+.text-reveal {
+  overflow: hidden;
+}
+
+.text-reveal .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: charReveal 0.5s var(--ease-smooth) forwards;
+}
+
+@keyframes charReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Word-level reveal */
+.text-reveal-words .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: wordReveal 0.6s var(--ease-smooth) forwards;
+}
+
+@keyframes wordReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--color-dot);
+  white-space: nowrap;
+  animation:
+    typing 3s steps(40, end),
+    blinkCursor 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--color-dot); }
+}
+
+/* Highlight on scroll - text gets colored when visible */
+.highlight-on-scroll {
+  background: linear-gradient(to right, var(--color-gold-light) 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.5s var(--ease-smooth);
+}
+
+.highlight-on-scroll.in-view {
+  background-position: 0 0;
+}
+
+/* Animated underline variants */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-smooth);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Gradient underline */
+.link-underline-gradient::after {
+  background: var(--gradient-dot-gold);
+}
+
+/* Sliding underline from center */
+.link-underline-center::after {
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+}
+
+.link-underline-center:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Text emphasis on hover */
+.text-emphasis-hover {
+  transition:
+    letter-spacing var(--duration-normal) var(--ease-smooth),
+    font-weight var(--duration-normal) var(--ease-smooth);
+}
+
+.text-emphasis-hover:hover {
+  letter-spacing: 0.02em;
+}
+
+/* Glitch text effect (subtle) */
+.text-glitch {
+  position: relative;
+}
+
+.text-glitch:hover {
+  animation: glitch 0.3s linear;
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+/* ============================================================
+   SCROLL-TRIGGERED ANIMATIONS
+   Use with Intersection Observer
+   ============================================================ */
+
+/* Fade in from directions */
+.scroll-fade-in {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.scroll-fade-in.in-view {
+  opacity: 1;
+}
+
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.scroll-fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-down {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.scroll-fade-down.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-left {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.scroll-fade-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-fade-right {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.scroll-fade-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale in */
+.scroll-scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.scroll-scale-in.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Staggered children */
+.scroll-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease-smooth), transform 0.5s var(--ease-smooth);
+}
+
+.scroll-stagger.in-view > *:nth-child(1) { transition-delay: 0.0s; opacity: 1; transform: translateY(0); }
+.scroll-stagger.in-view > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+.scroll-stagger.in-view > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+.scroll-stagger.in-view > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+.scroll-stagger.in-view > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+.scroll-stagger.in-view > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+
+/* Reveal line (decorative) */
+.scroll-line {
+  width: 0;
+  height: 2px;
+  background: var(--color-dot);
+  transition: width 0.8s var(--ease-smooth);
+}
+
+.scroll-line.in-view {
+  width: 100%;
+}
+
+/* ============================================================
+   LOADING & FEEDBACK STATES
+   Skeletons, spinners, success indicators
+   ============================================================ */
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-mist) 0%,
+    var(--color-cream) 50%,
+    var(--color-mist) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.skeleton-title {
+  height: 1.5em;
+  width: 60%;
+  margin-bottom: 1em;
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skeleton-card {
+  height: 200px;
+}
+
+/* Spinner */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--color-mist);
+  border-top-color: var(--color-dot);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner-sm {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.spinner-lg {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Dots loading */
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--color-dot);
+  border-radius: 50%;
+  animation: dotBounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Success checkmark */
+.success-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-teal);
+  position: relative;
+  animation: successPop 0.4s var(--ease-bounce);
+}
+
+.success-check::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  animation: checkDraw 0.3s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+@keyframes successPop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes checkDraw {
+  to { opacity: 1; }
+}
+
+/* Error shake */
+.error-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* Pulse notification badge */
+.pulse-badge {
+  position: relative;
+}
+
+.pulse-badge::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-dot);
+  border-radius: 50%;
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-dot-glow);
+  }
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+/* Toast slide in */
+.toast-enter {
+  animation: toastSlideIn 0.3s var(--ease-smooth);
+}
+
+.toast-exit {
+  animation: toastSlideOut 0.2s var(--ease-smooth) forwards;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastSlideOut {
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Progress bar animation */
+.progress-bar {
+  height: 4px;
+  background: var(--color-mist);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-teal);
+  border-radius: var(--radius-full);
+  transition: width 0.3s var(--ease-smooth);
+}
+
+.progress-bar-animated .progress-bar-fill {
+  background: linear-gradient(
+    90deg,
+    var(--color-teal) 0%,
+    var(--color-teal-light) 50%,
+    var(--color-teal) 100%
+  );
+  background-size: 200% 100%;
+  animation: progressShimmer 2s linear infinite;
+}
+
+@keyframes progressShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   BUTTON & INTERACTIVE ENHANCEMENTS
+   ============================================================ */
+
+/* Ripple effect on click */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: oklch(100% 0 0 / 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.ripple:active::before {
+  width: 200%;
+  height: 200%;
+}
+
+/* Magnetic button effect (subtle) */
+.magnetic {
+  transition: transform 0.2s var(--ease-smooth);
+}
+
+/* 3D press effect */
+.btn-3d {
+  box-shadow: 0 4px 0 var(--color-dot-dark);
+  transform: translateY(0);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-3d:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--color-dot-dark);
+}
+
+/* Icon rotate on hover */
+.icon-rotate-hover {
+  transition: transform var(--duration-normal) var(--ease-smooth);
+}
+
+.group:hover .icon-rotate-hover {
+  transform: rotate(45deg);
+}
+
+/* Icon bounce on hover */
+.icon-bounce-hover {
+  transition: transform var(--duration-normal) var(--ease-bounce);
+}
+
+.group:hover .icon-bounce-hover {
+  transform: translateY(-2px);
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
   .hero-dot-core,
   .hero-dot-ring,
   .hero-orb,
   .hero-eyebrow-dot,
   .hero-headline-highlight,
-  .hero-scroll-dot {
-    animation: none;
+  .hero-scroll-dot,
+  .spinner,
+  .loading-dots span,
+  .skeleton,
+  .text-reveal .char,
+  .text-reveal-words .word,
+  .typewriter {
+    animation: none !important;
   }
 
   .hero-eyebrow,
@@ -1240,18 +1777,20 @@ h1, h2, h3, h4, h5, h6 {
   .hero-subheadline,
   .hero-ctas,
   .hero-stats,
-  .hero-scroll {
-    opacity: 1;
-    transform: none;
+  .hero-scroll,
+  .scroll-fade-in,
+  .scroll-fade-up,
+  .scroll-fade-down,
+  .scroll-fade-left,
+  .scroll-fade-right,
+  .scroll-scale-in,
+  .scroll-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
-  .hero-eyebrow.animate-in,
-  .hero-headline-line.animate-in,
-  .hero-headline-highlight.animate-in,
-  .hero-subheadline.animate-in,
-  .hero-ctas.animate-in,
-  .hero-stats.animate-in,
-  .hero-scroll.animate-in {
-    animation: none;
+  .typewriter {
+    border-right: none;
+    white-space: normal;
   }
 }
