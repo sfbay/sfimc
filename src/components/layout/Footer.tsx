@@ -84,7 +84,7 @@ export function Footer() {
   return (
     <footer className="bg-[var(--color-ink)] text-[var(--color-paper)] relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[var(--color-dot)] opacity-5 blur-[150px] rounded-full" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[var(--color-teal)] opacity-5 blur-[120px] rounded-full" />
       </div>
@@ -116,8 +116,12 @@ export function Footer() {
             {/* Newsletter Form */}
             <div>
               {isSubscribed ? (
-                <div className="bg-[var(--color-teal)]/20 border border-[var(--color-teal)]/30 rounded-2xl p-8 text-center">
-                  <div className="w-12 h-12 bg-[var(--color-teal)] rounded-full flex items-center justify-center mx-auto mb-4">
+                <div
+                  className="bg-[var(--color-teal)]/20 border border-[var(--color-teal)]/30 rounded-2xl p-8 text-center"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <div className="w-12 h-12 bg-[var(--color-teal)] rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
@@ -128,19 +132,27 @@ export function Footer() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+                <form onSubmit={handleNewsletterSubmit} className="space-y-4" aria-label="Newsletter signup">
                   <div className="flex flex-col sm:flex-row gap-3">
+                    <label htmlFor="newsletter-email" className="sr-only">
+                      Email address
+                    </label>
                     <input
+                      id="newsletter-email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       required
+                      aria-required="true"
+                      aria-describedby="newsletter-privacy"
+                      autoComplete="email"
                       className="flex-1 px-5 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-[var(--color-warm-gray)] text-base focus:outline-none focus:border-[var(--color-dot)] focus:ring-2 focus:ring-[var(--color-dot)]/20 transition-all"
                     />
                     <button
                       type="submit"
                       disabled={isSubmitting}
+                      aria-disabled={isSubmitting}
                       className={cn(
                         'btn btn-dot btn-lg whitespace-nowrap',
                         isSubmitting && 'opacity-70 cursor-not-allowed'
@@ -148,21 +160,21 @@ export function Footer() {
                     >
                       {isSubmitting ? (
                         <>
-                          <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
-                          Subscribing...
+                          <span>Subscribing...</span>
                         </>
                       ) : (
                         <>
                           Subscribe
-                          <Send className="w-4 h-4" />
+                          <Send className="w-4 h-4" aria-hidden="true" />
                         </>
                       )}
                     </button>
                   </div>
-                  <p className="text-xs text-[var(--color-warm-gray)]">
+                  <p id="newsletter-privacy" className="text-xs text-[var(--color-warm-gray)]">
                     No spam, unsubscribe anytime. We respect your privacy.
                   </p>
                 </form>
@@ -262,11 +274,11 @@ export function Footer() {
             </div>
 
             {/* Coalition Links */}
-            <div>
-              <h4 className="font-[family-name:var(--font-display)] font-semibold mb-4 text-sm uppercase tracking-wider">
+            <nav aria-labelledby="footer-coalition-heading">
+              <h4 id="footer-coalition-heading" className="font-[family-name:var(--font-display)] font-semibold mb-4 text-sm uppercase tracking-wider">
                 Coalition
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-3" role="list">
                 {footerLinks.coalition.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -278,14 +290,14 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Resources Links */}
-            <div>
-              <h4 className="font-[family-name:var(--font-display)] font-semibold mb-4 text-sm uppercase tracking-wider">
+            <nav aria-labelledby="footer-resources-heading">
+              <h4 id="footer-resources-heading" className="font-[family-name:var(--font-display)] font-semibold mb-4 text-sm uppercase tracking-wider">
                 Resources
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-3" role="list">
                 {footerLinks.resources.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -297,14 +309,14 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Connect Links */}
-            <div>
-              <h4 className="font-[family-name:var(--font-display)] font-semibold mb-4 text-sm uppercase tracking-wider">
+            <nav aria-labelledby="footer-connect-heading">
+              <h4 id="footer-connect-heading" className="font-[family-name:var(--font-display)] font-semibold mb-4 text-sm uppercase tracking-wider">
                 Connect
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-3" role="list">
                 {footerLinks.connect.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -322,15 +334,16 @@ export function Footer() {
                 <a
                   href="/api/rss"
                   className="flex items-center gap-2 text-sm text-[var(--color-warm-gray)] hover:text-[var(--color-dot)] transition-colors"
+                  aria-label="Subscribe to RSS Feed (opens in new tab)"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z" />
                   </svg>
                   RSS Feed
-                  <ExternalLink className="w-3 h-3" />
+                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
                 </a>
               </div>
-            </div>
+            </nav>
           </div>
         </div>
       </div>

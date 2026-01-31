@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { SkipLink } from '@/components/a11y'
 
 export default function AppLayout({
   children,
@@ -8,8 +9,9 @@ export default function AppLayout({
 }) {
   return (
     <>
+      <SkipLink />
       <Header />
-      <main className="min-h-screen">
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
         {children}
       </main>
       <Footer />

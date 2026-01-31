@@ -32,10 +32,10 @@ export function Hero({
 
   return (
     <section className="hero">
-      {/* Animated Background */}
-      <div className="hero-bg">
+      {/* Animated Background - Decorative */}
+      <div className="hero-bg" aria-hidden="true">
         {/* The Dot - Animated Brand Element */}
-        <div className="hero-dot" aria-hidden="true">
+        <div className="hero-dot">
           <div className="hero-dot-core" />
           <div className="hero-dot-ring hero-dot-ring-1" />
           <div className="hero-dot-ring hero-dot-ring-2" />
@@ -85,6 +85,7 @@ export function Hero({
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -106,8 +107,8 @@ export function Hero({
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className={`hero-scroll ${mounted ? 'animate-in stagger-7' : ''}`}>
+      {/* Scroll Indicator - Decorative hint */}
+      <div className={`hero-scroll ${mounted ? 'animate-in stagger-7' : ''}`} aria-hidden="true">
         <span>Scroll to explore</span>
         <div className="hero-scroll-line">
           <div className="hero-scroll-dot" />

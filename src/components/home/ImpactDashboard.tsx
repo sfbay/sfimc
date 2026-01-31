@@ -17,6 +17,13 @@ function CountUp({ end, duration = 2000, prefix = '', suffix = '' }: CountUpProp
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      setCount(end)
+      return
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -46,8 +53,9 @@ function CountUp({ end, duration = 2000, prefix = '', suffix = '' }: CountUpProp
   }, [end, duration, hasAnimated])
 
   return (
-    <span ref={ref}>
-      {prefix}{count.toLocaleString()}{suffix}
+    <span ref={ref} aria-live="polite" aria-atomic="true">
+      <span className="sr-only">{prefix}{end.toLocaleString()}{suffix}</span>
+      <span aria-hidden="true">{prefix}{count.toLocaleString()}{suffix}</span>
     </span>
   )
 }
@@ -110,7 +118,7 @@ export function ImpactDashboard() {
   return (
     <section className="section bg-[var(--color-ink)] text-[var(--color-paper)] relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[var(--color-teal)] opacity-10 blur-[150px] rounded-full" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[var(--color-dot)] opacity-10 blur-[120px] rounded-full" />
         {/* Grid pattern */}

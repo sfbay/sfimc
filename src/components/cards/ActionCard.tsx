@@ -97,7 +97,14 @@ export function ActionCard({ action, variant = 'default', className }: ActionCar
                   <span>{action.progress?.current.toLocaleString()} signed</span>
                   <span>Goal: {action.progress?.goal.toLocaleString()}</span>
                 </div>
-                <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+                <div
+                  className="h-2 bg-white/20 rounded-full overflow-hidden"
+                  role="progressbar"
+                  aria-valuenow={action.progress?.current}
+                  aria-valuemin={0}
+                  aria-valuemax={action.progress?.goal}
+                  aria-label={`${action.progress?.current.toLocaleString()} of ${action.progress?.goal.toLocaleString()} signatures`}
+                >
                   <div
                     className="h-full bg-white rounded-full transition-all duration-500"
                     style={{ width: `${progressPercent}%` }}
@@ -237,10 +244,17 @@ export function ActionCard({ action, variant = 'default', className }: ActionCar
               <span>{action.progress?.current.toLocaleString()} signed</span>
               <span>{Math.round(progressPercent)}%</span>
             </div>
-            <div className={cn(
-              'h-2 rounded-full overflow-hidden',
-              action.urgent ? 'bg-white/20' : 'bg-[var(--color-mist)]'
-            )}>
+            <div
+              className={cn(
+                'h-2 rounded-full overflow-hidden',
+                action.urgent ? 'bg-white/20' : 'bg-[var(--color-mist)]'
+              )}
+              role="progressbar"
+              aria-valuenow={action.progress?.current}
+              aria-valuemin={0}
+              aria-valuemax={action.progress?.goal}
+              aria-label={`${action.progress?.current.toLocaleString()} of ${action.progress?.goal.toLocaleString()} signatures`}
+            >
               <div
                 className={cn(
                   'h-full rounded-full transition-all duration-500',

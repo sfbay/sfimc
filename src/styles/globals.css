@@ -145,6 +145,116 @@ body {
 }
 
 /* ============================================================
+   ACCESSIBILITY
+   Skip links, focus indicators, screen reader utilities
+   ============================================================ */
+
+/* Skip Link - Visible only on focus */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1rem 2rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  outline: 3px solid var(--color-dot);
+  outline-offset: 2px;
+}
+
+/* Enhanced Focus Indicators */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-dot);
+  outline-offset: 2px;
+}
+
+/* Specific focus styles for dark backgrounds */
+.bg-\[var\(--color-ink\)\] :focus-visible,
+[class*="bg-ink"] :focus-visible {
+  outline-color: var(--color-gold);
+}
+
+/* Button focus */
+.btn:focus-visible {
+  outline: 3px solid var(--color-dot);
+  outline-offset: 3px;
+  box-shadow: var(--shadow-glow-dot);
+}
+
+/* Link focus on dark backgrounds */
+.text-\[var\(--color-paper\)\]:focus-visible,
+[data-theme="dark"] a:focus-visible {
+  outline-color: var(--color-gold);
+}
+
+/* Screen Reader Only - Visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Make sr-only visible on focus (for skip links etc) */
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Reduced Motion - System preference respected */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid currentColor;
+  }
+
+  .card {
+    border: 2px solid var(--color-ink);
+  }
+
+  :focus-visible {
+    outline-width: 4px;
+  }
+}
+
+/* ============================================================
    TYPOGRAPHY SCALE
    ============================================================ */
 

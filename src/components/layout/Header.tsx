@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -19,6 +19,8 @@ export function Header() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   // Handle scroll
   useEffect(() => {
@@ -46,6 +48,50 @@ export function Header() {
     }
     return () => {
       document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
+
+  // Focus trap for mobile menu
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (!isMobileMenuOpen) return
+
+    // Close on Escape
+    if (e.key === 'Escape') {
+      setIsMobileMenuOpen(false)
+      menuButtonRef.current?.focus()
+      return
+    }
+
+    // Focus trap
+    if (e.key === 'Tab') {
+      const focusableElements = mobileMenuRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+      if (!focusableElements?.length) return
+
+      const firstElement = focusableElements[0] as HTMLElement
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault()
+        lastElement.focus()
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault()
+        firstElement.focus()
+      }
+    }
+  }, [isMobileMenuOpen])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
+
+  // Focus first menu item when menu opens
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const firstLink = mobileMenuRef.current?.querySelector('a') as HTMLElement
+      firstLink?.focus()
     }
   }, [isMobileMenuOpen])
 
@@ -120,15 +166,17 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
+            ref={menuButtonRef}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 text-[var(--color-ink)] hover:bg-[var(--color-mist)]/50 rounded-lg transition-colors relative z-10"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
+              <X className="w-6 h-6" aria-hidden="true" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="w-6 h-6" aria-hidden="true" />
             )}
           </button>
         </nav>
@@ -139,6 +187,11 @@ export function Header() {
 
       {/* Mobile Menu - Full Screen */}
       <div
+        id="mobile-menu"
+        ref={mobileMenuRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
         className={cn(
           'fixed inset-0 z-40 md:hidden transition-all duration-300',
           isMobileMenuOpen
@@ -150,6 +203,7 @@ export function Header() {
         <div
           className="absolute inset-0 bg-[var(--color-ink)]/90 backdrop-blur-sm"
           onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
         />
 
         {/* Menu Content */}
@@ -161,7 +215,7 @@ export function Header() {
         >
           <div className="container py-8">
             {/* Navigation Links */}
-            <nav className="space-y-2">
+            <nav className="space-y-2" aria-label="Mobile navigation">
               {navLinks.map((link, index) => (
                 <Link
                   key={link.href}
