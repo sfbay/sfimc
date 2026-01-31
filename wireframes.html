@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAIMCO Website Mockups — Stakeholder Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Bold, dynamic palette */
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --cream: #f8f6f2;
+
+      /* The dot - vibrant orange-red */
+      --dot: #ff4f1f;
+      --dot-glow: rgba(255, 79, 31, 0.4);
+
+      /* Accent spectrum */
+      --electric: #00d4aa;
+      --violet: #7c3aed;
+      --gold: #fbbf24;
+
+      /* Warm neutrals */
+      --warm-gray: #78716c;
+      --warm-dark: #292524;
+
+      /* Typography */
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Grotesk', monospace;
+
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2.5rem;
+      --space-xl: 4rem;
+      --space-2xl: 6rem;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* Presentation wrapper */
+    .presentation {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+    }
+
+    .presentation-header {
+      text-align: center;
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid #222;
+      margin-bottom: var(--space-2xl);
+      position: relative;
+    }
+
+    .presentation-header::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--dot-glow) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .presentation-header h1 {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--white) 0%, var(--dot) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-sm);
+      position: relative;
+    }
+
+    .presentation-header p {
+      color: var(--warm-gray);
+      font-size: 1.1rem;
+      font-family: var(--font-mono);
+    }
+
+    .presentation-nav {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .presentation-nav a {
+      color: var(--white);
+      text-decoration: none;
+      padding: var(--space-xs) var(--space-md);
+      border: 1px solid #333;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .presentation-nav a:hover {
+      background: var(--dot);
+      border-color: var(--dot);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--dot-glow);
+    }
+
+    /* Mockup sections */
+    .mockup-section {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .mockup-label {
+      font-family: var(--font-mono);
+      color: var(--dot);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .mockup-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .mockup-desc {
+      color: var(--warm-gray);
+      margin-bottom: var(--space-lg);
+      max-width: 600px;
+      font-size: 1.05rem;
+    }
+
+    /* Browser frame */
+    .browser-frame {
+      background: #151515;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 25px 80px rgba(0,0,0,0.5),
+        0 0 100px var(--dot-glow);
+    }
+
+    .browser-bar {
+      background: #1a1a1a;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid #222;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .browser-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .browser-dots span:nth-child(1) { background: #ff5f57; }
+    .browser-dots span:nth-child(2) { background: #ffbd2e; }
+    .browser-dots span:nth-child(3) { background: #28ca42; }
+
+    .browser-url {
+      flex: 1;
+      background: #0a0a0a;
+      border-radius: 8px;
+      padding: 10px 18px;
+      color: #666;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      border: 1px solid #222;
+    }
+
+    .browser-content {
+      background: var(--cream);
+    }
+
+    /* ==========================================
+       MOCKUP 1: HOMEPAGE — BOLD & DYNAMIC
+       ========================================== */
+
+    .home-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md) var(--space-xl);
+      background: var(--black);
+      position: relative;
+    }
+
+    .home-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+    }
+
+    .home-logo .dot {
+      color: var(--dot);
+      margin: 0 2px;
+      position: relative;
+    }
+
+    .home-nav-links {
+      display: flex;
+      gap: var(--space-lg);
+      list-style: none;
+    }
+
+    .home-nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      font-family: var(--font-mono);
+    }
+
+    .home-nav-links a:hover {
+      color: var(--dot);
+    }
+
+    /* BOLD HERO */
+    .home-hero {
+      background: var(--black);
+      padding: var(--space-2xl) var(--space-xl);
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--dot-glow) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .home-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 212, 170, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .home-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-hero h1 {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.03em;
+    }
+
+    .home-hero h1 .highlight {
+      background: linear-gradient(135deg, var(--dot) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .home-hero p {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 500px;
+      margin-bottom: var(--space-lg);
+      line-height: 1.6;
+    }
+
+    .home-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--dot);
+      color: white;
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .home-hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px var(--dot-glow);
+    }
+
+    /* Photo collage area */
+    .hero-photos {
+      position: relative;
+      z-index: 1;
+      height: 400px;
+    }
+
+    .photo-placeholder {
+      position: absolute;
+      background: linear-gradient(135deg, #333 0%, #222 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      border: 1px solid #444;
+      overflow: hidden;
+    }
+
+    .photo-placeholder::before {
+      content: '📷';
+      font-size: 1.5rem;
+      opacity: 0.5;
+    }
+
+    .photo-1 {
+      width: 280px;
+      height: 320px;
+      top: 0;
+      right: 40px;
+      transform: rotate(3deg);
+      z-index: 3;
+    }
+
+    .photo-2 {
+      width: 200px;
+      height: 240px;
+      top: 60px;
+      right: 260px;
+      transform: rotate(-5deg);
+      z-index: 2;
+    }
+
+    .photo-3 {
+      width: 180px;
+      height: 200px;
+      bottom: 20px;
+      right: 120px;
+      transform: rotate(2deg);
+      z-index: 1;
+    }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-sm);
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+    }
+
+    /* Impact banner - bold */
+    .impact-banner {
+      background: linear-gradient(90deg, var(--electric) 0%, #00b894 100%);
+      padding: var(--space-lg) var(--space-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .impact-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .impact-banner-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .impact-banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .impact-banner-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .impact-banner-content p {
+      color: rgba(0,0,0,0.7);
+      font-size: 1rem;
+    }
+
+    /* Member showcase - grid with photos */
+    .home-members {
+      padding: var(--space-2xl) var(--space-xl);
+      background: var(--white);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.02em;
+    }
+
+    .section-header h2 .dot-accent {
+      color: var(--dot);
+    }
+
+    .section-header a {
+      color: var(--dot);
+      text-decoration: none;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.2s;
+    }
+
+    .section-header a:hover {
+      gap: 12px;
+    }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .member-card {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: var(--space-lg);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .member-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--dot);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-color: var(--dot);
+    }
+
+    .member-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .member-logo {
+      width: 72px;
+      height: 72px;
+      background: var(--white);
+      border-radius: 12px;
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #999;
+      border: 1px solid #e5e5e5;
+    }
+
+    .member-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+
+    .member-card p {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      line-height: 1.4;
+    }
+
+    /* Impact stories - bold cards */
+    .home-impact {
+      padding: var(--space-2xl) var(--space-xl);
+      background: var(--black);
+      position: relative;
+    }
+
+    .home-impact .section-header h2 {
+      color: var(--white);
+    }
+
+    .home-impact .section-header a {
+      color: var(--electric);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--space-lg);
+    }
+
+    .impact-card {
+      background: #151515;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #222;
+      transition: all 0.3s;
+    }
+
+    .impact-card:hover {
+      border-color: var(--dot);
+      transform: translateY(-4px);
+    }
+
+    .impact-card-image {
+      height: 200px;
+      background: linear-gradient(135deg, #333 0%, #222 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      position: relative;
+    }
+
+    .impact-card-image::before {
+      content: '📷 Community Photo';
+      opacity: 0.5;
+    }
+
+    .impact-card-content {
+      padding: var(--space-lg);
+    }
+
+    .impact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 12px;
+      border-radius: 100px;
+      margin-bottom: var(--space-sm);
+      font-family: var(--font-mono);
+    }
+
+    .impact-tag.policy {
+      background: rgba(255, 79, 31, 0.15);
+      color: var(--dot);
+      border: 1px solid rgba(255, 79, 31, 0.3);
+    }
+    .impact-tag.accountability {
+      background: rgba(124, 58, 237, 0.15);
+      color: var(--violet);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+    }
+    .impact-tag.recognition {
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    .impact-tag.resources {
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--electric);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+    }
+
+    .impact-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      line-height: 1.25;
+      color: var(--white);
+    }
+
+    .impact-card-meta {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      font-family: var(--font-mono);
+    }
+
+    .impact-card-meta .outlet {
+      color: var(--dot);
+      font-weight: 600;
+    }
+
+    .impact-card-small {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .impact-card-mini {
+      background: #151515;
+      border-radius: 16px;
+      padding: var(--space-md);
+      border: 1px solid #222;
+      transition: all 0.3s;
+      flex: 1;
+    }
+
+    .impact-card-mini:hover {
+      border-color: var(--dot);
+    }
+
+    .impact-card-mini h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: var(--space-xs);
+      line-height: 1.3;
+    }
+
+    /* Footer */
+    .home-footer {
+      background: var(--black);
+      border-top: 1px solid #222;
+      color: rgba(255,255,255,0.5);
+      padding: var(--space-xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .home-footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .home-footer-logo .dot {
+      color: var(--dot);
+    }
+
+    .home-footer p {
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+    }
+
+    /* ==========================================
+       MOCKUP 2: MEMBERS DIRECTORY
+       ========================================== */
+
+    .members-hero {
+      background: var(--black);
+      padding: var(--space-2xl) var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .members-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(255, 79, 31, 0.1) 100%);
+    }
+
+    .members-hero h1 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: var(--space-sm);
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .members-hero h1 .count {
+      color: var(--electric);
+    }
+
+    .members-hero p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1.2rem;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .members-filters {
+      background: #151515;
+      padding: var(--space-md) var(--space-xl);
+      display: flex;
+      gap: var(--space-sm);
+      border-bottom: 1px solid #222;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-mono);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--dot);
+      color: var(--white);
+    }
+
+    .filter-btn.active {
+      background: var(--dot);
+      color: white;
+      border-color: var(--dot);
+    }
+
+    .members-content {
+      background: var(--cream);
+      padding: var(--space-xl);
+    }
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .member-card-full {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #e5e5e5;
+      transition: all 0.3s;
+    }
+
+    .member-card-full:hover {
+      border-color: var(--dot);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+
+    .member-card-full-image {
+      height: 160px;
+      background: linear-gradient(135deg, #e5e5e5 0%, #d5d5d5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      position: relative;
+    }
+
+    .member-card-full-image::before {
+      content: '📷 Team / Community Photo';
+      opacity: 0.5;
+    }
+
+    .member-card-full-body {
+      padding: var(--space-lg);
+    }
+
+    .member-card-full-header {
+      display: flex;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      align-items: flex-start;
+    }
+
+    .member-card-full-logo {
+      width: 56px;
+      height: 56px;
+      background: var(--cream);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #999;
+      flex-shrink: 0;
+      border: 1px solid #e5e5e5;
+    }
+
+    .member-card-full-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--black);
+    }
+
+    .member-card-full-info .community {
+      color: var(--dot);
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .member-card-full p {
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+      margin-bottom: var(--space-md);
+      line-height: 1.5;
+    }
+
+    .member-card-full-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+
+    .member-card-full-link:hover {
+      color: var(--dot);
+    }
+
+    /* ==========================================
+       MOCKUP 3: IMPACT AGGREGATOR
+       ========================================== */
+
+    .aggregator-header {
+      background: linear-gradient(135deg, var(--dot) 0%, #e63d10 100%);
+      padding: var(--space-2xl) var(--space-xl);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aggregator-header::before {
+      content: 'IMPACT';
+      position: absolute;
+      right: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 12rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.1);
+      letter-spacing: -0.05em;
+    }
+
+    .aggregator-header h1 {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: var(--space-sm);
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .aggregator-header p {
+      opacity: 0.9;
+      font-size: 1.2rem;
+      position: relative;
+      max-width: 600px;
+    }
+
+    .aggregator-featured {
+      background: var(--black);
+      padding: var(--space-xl);
+    }
+
+    .featured-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--electric);
+      margin-bottom: var(--space-lg);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .featured-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--electric), transparent);
+    }
+
+    .featured-story {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .featured-image {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #222 0%, #111 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #444;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .featured-image::before {
+      content: '📷 Featured Photo';
+    }
+
+    .featured-content .impact-tag {
+      margin-bottom: var(--space-md);
+    }
+
+    .featured-content h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
+      color: var(--white);
+    }
+
+    .featured-content .excerpt {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      margin-bottom: var(--space-lg);
+      line-height: 1.6;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      font-family: var(--font-mono);
+      margin-bottom: var(--space-lg);
+    }
+
+    .featured-meta .outlet {
+      color: var(--dot);
+      font-weight: 600;
+    }
+
+    .featured-outcome {
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      border-radius: 12px;
+      padding: var(--space-md);
+    }
+
+    .featured-outcome strong {
+      color: var(--electric);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: var(--font-mono);
+    }
+
+    .featured-outcome p {
+      color: var(--white);
+      font-size: 1rem;
+      margin-top: 6px;
+    }
+
+    .share-tools {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+
+    .share-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #222;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .share-btn:hover {
+      background: var(--dot);
+      border-color: var(--dot);
+      transform: translateY(-2px);
+    }
+
+    .aggregator-filters {
+      background: #151515;
+      padding: var(--space-md) var(--space-xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+    }
+
+    .aggregator-feed {
+      background: var(--cream);
+      padding: var(--space-xl);
+    }
+
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .feed-item {
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      background: var(--white);
+      border-radius: 16px;
+      align-items: center;
+      border: 1px solid #e5e5e5;
+      transition: all 0.3s;
+    }
+
+    .feed-item:hover {
+      border-color: var(--dot);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transform: translateX(8px);
+    }
+
+    .feed-item-image {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #e5e5e5 0%, #d5d5d5 100%);
+      border-radius: 12px;
+    }
+
+    .feed-item-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.3;
+      color: var(--black);
+    }
+
+    .feed-item-content .meta {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      font-family: var(--font-mono);
+    }
+
+    .feed-item-content .meta .outlet {
+      color: var(--dot);
+      font-weight: 600;
+    }
+
+    .feed-item-outcome {
+      text-align: right;
+    }
+
+    .feed-item-outcome .impact-tag {
+      margin-bottom: 6px;
+    }
+
+    .feed-item-outcome .outcome-text {
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      max-width: 200px;
+      line-height: 1.4;
+    }
+
+    /* ==========================================
+       MOCKUP 4: IDENTITY CONCEPT
+       ========================================== */
+
+    .identity-section {
+      background: var(--black);
+      padding: var(--space-2xl);
+    }
+
+    .identity-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .identity-panel {
+      background: #0f0f0f;
+      border-radius: 24px;
+      padding: var(--space-xl);
+      border: 1px solid #222;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .identity-panel h3 {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--warm-gray);
+      margin-bottom: var(--space-lg);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* Logo variations */
+    .logo-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xl) 0;
+      position: relative;
+    }
+
+    .logo-primary::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--dot-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo-wordmark {
+      font-family: var(--font-display);
+      font-size: 5.5rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.04em;
+      position: relative;
+    }
+
+    .logo-wordmark .dot {
+      color: var(--dot);
+      display: inline-block;
+      position: relative;
+      text-shadow: 0 0 40px var(--dot-glow);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 40px var(--dot-glow);
+        transform: scale(1);
+      }
+      50% {
+        text-shadow: 0 0 60px var(--dot-glow), 0 0 80px var(--dot-glow);
+        transform: scale(1.05);
+      }
+    }
+
+    .logo-variations {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .logo-var {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: var(--space-lg);
+      text-align: center;
+      border: 1px solid #222;
+      transition: all 0.3s;
+    }
+
+    .logo-var:hover {
+      border-color: var(--dot);
+    }
+
+    .logo-var-text {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .logo-var-text .dot {
+      color: var(--dot);
+    }
+
+    .logo-var-label {
+      font-size: 0.7rem;
+      color: #555;
+      margin-top: var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: var(--font-mono);
+    }
+
+    /* Reflective concept */
+    .reflective-demo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xl) 0;
+      position: relative;
+    }
+
+    .reflective-logo {
+      display: flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 800;
+      position: relative;
+    }
+
+    .reflective-logo .ba {
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .reflective-logo .dot-container {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 4px;
+      position: relative;
+    }
+
+    .reflective-logo .dot-core {
+      width: 20px;
+      height: 20px;
+      background: var(--dot);
+      border-radius: 50%;
+      box-shadow:
+        0 0 30px var(--dot-glow),
+        0 0 60px var(--dot-glow),
+        0 0 90px var(--dot-glow);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 30px var(--dot-glow), 0 0 60px var(--dot-glow); }
+      to { box-shadow: 0 0 50px var(--dot-glow), 0 0 100px var(--dot-glow), 0 0 140px var(--dot-glow); }
+    }
+
+    .reflective-logo .mc {
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .reflective-note {
+      text-align: center;
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: var(--space-lg);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Color palette */
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .color-swatch {
+      aspect-ratio: 1;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .color-swatch span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: var(--font-mono);
+    }
+
+    .color-swatch.white { background: var(--white); border: 1px solid #e5e5e5; }
+    .color-swatch.white span { color: var(--black); }
+    .color-swatch.black { background: var(--black); border: 1px solid #333; }
+    .color-swatch.black span { color: var(--white); }
+    .color-swatch.dot { background: var(--dot); }
+    .color-swatch.dot span { color: white; }
+    .color-swatch.electric { background: var(--electric); }
+    .color-swatch.electric span { color: var(--black); }
+    .color-swatch.violet { background: var(--violet); }
+    .color-swatch.violet span { color: white; }
+    .color-swatch.gold { background: var(--gold); }
+    .color-swatch.gold span { color: var(--black); }
+
+    /* Typography showcase */
+    .type-showcase {
+      margin-top: var(--space-xl);
+    }
+
+    .type-sample {
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: 1px solid #222;
+    }
+
+    .type-sample:last-child {
+      border-bottom: none;
+    }
+
+    .type-sample-label {
+      font-size: 0.7rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: var(--space-sm);
+      font-family: var(--font-mono);
+    }
+
+    .type-sample-display {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .type-sample-body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    .type-sample-mono {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--electric);
+    }
+
+    /* Application examples */
+    .identity-applications {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .app-example {
+      background: #151515;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #222;
+    }
+
+    .app-example-preview {
+      padding: var(--space-lg);
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-example-label {
+      background: #0a0a0a;
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.75rem;
+      color: #666;
+      text-align: center;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Social card mockup */
+    .social-card-mock {
+      background: linear-gradient(135deg, var(--dot) 0%, #e63d10 100%);
+      border-radius: 12px;
+      padding: var(--space-lg);
+      width: 100%;
+      max-width: 260px;
+    }
+
+    .social-card-mock .logo-small {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: var(--space-sm);
+    }
+
+    .social-card-mock .logo-small .dot {
+      opacity: 0.7;
+    }
+
+    .social-card-mock h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.3;
+    }
+
+    /* Email signature mockup */
+    .email-sig-mock {
+      background: white;
+      border-radius: 12px;
+      padding: var(--space-md);
+      font-size: 0.85rem;
+      color: var(--black);
+      max-width: 240px;
+    }
+
+    .email-sig-mock .name {
+      font-weight: 700;
+      font-family: var(--font-display);
+      margin-bottom: 2px;
+    }
+
+    .email-sig-mock .title {
+      color: var(--warm-gray);
+      margin-bottom: var(--space-sm);
+      font-size: 0.8rem;
+    }
+
+    .email-sig-mock .sig-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--black);
+      padding-top: var(--space-sm);
+      border-top: 2px solid var(--cream);
+    }
+
+    .email-sig-mock .sig-logo .dot { color: var(--dot); }
+
+    /* Favicon mockup */
+    .favicon-mock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .favicon-large {
+      width: 72px;
+      height: 72px;
+      background: var(--dot);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px var(--dot-glow);
+    }
+
+    .favicon-dot {
+      width: 28px;
+      height: 28px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .favicon-sizes {
+      display: flex;
+      gap: var(--space-xs);
+      align-items: flex-end;
+    }
+
+    .favicon-sizes div {
+      background: var(--dot);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .favicon-sizes div::after {
+      content: '';
+      background: white;
+      border-radius: 50%;
+    }
+
+    .favicon-sizes .f32 { width: 32px; height: 32px; border-radius: 8px; }
+    .favicon-sizes .f32::after { width: 12px; height: 12px; }
+    .favicon-sizes .f16 { width: 16px; height: 16px; border-radius: 4px; }
+    .favicon-sizes .f16::after { width: 6px; height: 6px; }
+
+    /* Footer note */
+    .presentation-footer {
+      text-align: center;
+      padding: var(--space-2xl) 0 var(--space-xl);
+      border-top: 1px solid #222;
+      margin-top: var(--space-2xl);
+    }
+
+    .presentation-footer p {
+      color: #555;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+    }
+
+    .presentation-footer p strong {
+      color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation">
+
+    <header class="presentation-header">
+      <h1>BAIMCO Website Mockups</h1>
+      <p>Visual concepts for stakeholder review — January 2026</p>
+      <nav class="presentation-nav">
+        <a href="#homepage">Homepage</a>
+        <a href="#members">Members Directory</a>
+        <a href="#impact">Impact Aggregator</a>
+        <a href="#identity">Identity Concept</a>
+      </nav>
+    </header>
+
+    <!-- ==========================================
+         MOCKUP 1: HOMEPAGE
+         ========================================== -->
+
+    <section class="mockup-section" id="homepage">
+      <div class="mockup-label">Mockup 01</div>
+      <h2 class="mockup-title">Homepage</h2>
+      <p class="mockup-desc">Bold, mission-forward entry point with community photography and clear impact messaging. Dark mode hero transitions to content-rich body.</p>
+
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-url">baimc.org</div>
+        </div>
+        <div class="browser-content">
+
+          <nav class="home-nav">
+            <div class="home-logo">ba<span class="dot">·</span>mc</div>
+            <ul class="home-nav-links">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Members</a></li>
+              <li><a href="#">Impact</a></li>
+              <li><a href="#">Policy</a></li>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Join</a></li>
+            </ul>
+          </nav>
+
+          <section class="home-hero">
+            <div class="home-hero-content">
+              <h1>Journalism that <span class="highlight">moves</span> San Francisco</h1>
+              <p>We're a coalition of ethnic and community publishers building the infrastructure for local news that actually makes a difference.</p>
+              <a href="#" class="home-hero-cta">Explore our impact →</a>
+            </div>
+            <div class="hero-photos">
+              <div class="photo-placeholder photo-1">
+                <span class="photo-caption">Community event photo</span>
+              </div>
+              <div class="photo-placeholder photo-2">
+                <span class="photo-caption">Reporter at work</span>
+              </div>
+              <div class="photo-placeholder photo-3">
+                <span class="photo-caption">Neighborhood gathering</span>
+              </div>
+            </div>
+          </section>
+
+          <div class="impact-banner">
+            <div class="impact-banner-icon">✓</div>
+            <div class="impact-banner-content">
+              <h3>50% of SF city advertising now goes to community media</h3>
+              <p>Our coalition advocacy led to this landmark policy — passed by the Board of Supervisors in 2024.</p>
+            </div>
+          </div>
+
+          <section class="home-members">
+            <header class="section-header">
+              <h2>11 Publications<span class="dot-accent">.</span> One Coalition<span class="dot-accent">.</span></h2>
+              <a href="#">View all members →</a>
+            </header>
+            <div class="member-grid">
+              <div class="member-card">
+                <div class="member-logo">Logo</div>
+                <h4>El Tecolote</h4>
+                <p>Mission District · Latino community since 1970</p>
+              </div>
+              <div class="member-card">
+                <div class="member-logo">Logo</div>
+                <h4>The Bay View</h4>
+                <p>Hunters Point · Black community since 1976</p>
+              </div>
+              <div class="member-card">
+                <div class="member-logo">Logo</div>
+                <h4>Nichi Bei</h4>
+                <p>Japantown · Japanese American since 1899</p>
+              </div>
+              <div class="member-card">
+                <div class="member-logo">Logo</div>
+                <h4>Bay Area Reporter</h4>
+                <p>Citywide · LGBTQ+ community since 1971</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="home-impact">
+            <header class="section-header">
+              <h2>Recent Impact</h2>
+              <a href="#">See all stories →</a>
+            </header>
+            <div class="impact-grid">
+              <article class="impact-card">
+                <div class="impact-card-image"></div>
+                <div class="impact-card-content">
+                  <span class="impact-tag policy">Policy Changed</span>
+                  <h4>Investigation leads to new city oversight requirements for contracting</h4>
+                  <p class="impact-card-meta"><span class="outlet">SF Public Press</span> · December 2025</p>
+                </div>
+              </article>
+              <div class="impact-card-small">
+                <article class="impact-card-mini">
+                  <span class="impact-tag recognition">Award</span>
+                  <h4>Mission Local wins California Journalism Award for housing series</h4>
+                  <p class="impact-card-meta"><span class="outlet">Mission Local</span> · Nov 2025</p>
+                </article>
+                <article class="impact-card-mini">
+                  <span class="impact-tag resources">Resources Connected</span>
+                  <h4>Coverage connects 200+ families to rental assistance</h4>
+                  <p class="impact-card-meta"><span class="outlet">El Tecolote</span> · Oct 2025</p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <footer class="home-footer">
+            <div class="home-footer-logo">ba<span class="dot">·</span>mc</div>
+            <p>Bay Area Independent Media Coalition © 2026</p>
+          </footer>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MOCKUP 2: MEMBERS DIRECTORY
+         ========================================== -->
+
+    <section class="mockup-section" id="members">
+      <div class="mockup-label">Mockup 02</div>
+      <h2 class="mockup-title">Members Directory</h2>
+      <p class="mockup-desc">Showcasing coalition diversity with filterable profiles, team photos, and direct links to each publication.</p>
+
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-url">baimc.org/members</div>
+        </div>
+        <div class="browser-content">
+
+          <nav class="home-nav">
+            <div class="home-logo">ba<span class="dot">·</span>mc</div>
+            <ul class="home-nav-links">
+              <li><a href="#">About</a></li>
+              <li><a href="#" style="color: var(--dot);">Members</a></li>
+              <li><a href="#">Impact</a></li>
+              <li><a href="#">Policy</a></li>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Join</a></li>
+            </ul>
+          </nav>
+
+          <section class="members-hero">
+            <h1><span class="count">11</span> Independent Voices</h1>
+            <p>Ethnic media, neighborhood news, investigative journalism — diverse publications serving San Francisco's diverse communities.</p>
+          </section>
+
+          <div class="members-filters">
+            <button class="filter-btn active">All Publications</button>
+            <button class="filter-btn">Ethnic Media</button>
+            <button class="filter-btn">Neighborhood</button>
+            <button class="filter-btn">Investigative</button>
+            <button class="filter-btn">LGBTQ+</button>
+          </div>
+
+          <section class="members-content">
+            <div class="members-grid">
+
+              <article class="member-card-full">
+                <div class="member-card-full-image"></div>
+                <div class="member-card-full-body">
+                  <div class="member-card-full-header">
+                    <div class="member-card-full-logo">Logo</div>
+                    <div class="member-card-full-info">
+                      <h3>El Tecolote</h3>
+                      <span class="community">Mission District · Latino</span>
+                    </div>
+                  </div>
+                  <p>Bilingual newspaper serving SF's Latino community since 1970. Published with SF State journalism students.</p>
+                  <a href="#" class="member-card-full-link">Visit eltecolote.org →</a>
+                </div>
+              </article>
+
+              <article class="member-card-full">
+                <div class="member-card-full-image"></div>
+                <div class="member-card-full-body">
+                  <div class="member-card-full-header">
+                    <div class="member-card-full-logo">Logo</div>
+                    <div class="member-card-full-info">
+                      <h3>Mission Local</h3>
+                      <span class="community">Mission District</span>
+                    </div>
+                  </div>
+                  <p>Nonprofit news covering SF's Mission neighborhood with in-depth local reporting and investigations.</p>
+                  <a href="#" class="member-card-full-link">Visit missionlocal.org →</a>
+                </div>
+              </article>
+
+              <article class="member-card-full">
+                <div class="member-card-full-image"></div>
+                <div class="member-card-full-body">
+                  <div class="member-card-full-header">
+                    <div class="member-card-full-logo">Logo</div>
+                    <div class="member-card-full-info">
+                      <h3>The Bay View</h3>
+                      <span class="community">Hunters Point · Black</span>
+                    </div>
+                  </div>
+                  <p>San Francisco's Black newspaper, covering Bayview-Hunters Point and Black communities since 1976.</p>
+                  <a href="#" class="member-card-full-link">Visit sfbayview.com →</a>
+                </div>
+              </article>
+
+              <article class="member-card-full">
+                <div class="member-card-full-image"></div>
+                <div class="member-card-full-body">
+                  <div class="member-card-full-header">
+                    <div class="member-card-full-logo">Logo</div>
+                    <div class="member-card-full-info">
+                      <h3>SF Public Press</h3>
+                      <span class="community">Investigative</span>
+                    </div>
+                  </div>
+                  <p>Nonprofit investigative newsroom producing deep-dive reporting on housing, government, and public safety.</p>
+                  <a href="#" class="member-card-full-link">Visit sfpublicpress.org →</a>
+                </div>
+              </article>
+
+              <article class="member-card-full">
+                <div class="member-card-full-image"></div>
+                <div class="member-card-full-body">
+                  <div class="member-card-full-header">
+                    <div class="member-card-full-logo">Logo</div>
+                    <div class="member-card-full-info">
+                      <h3>Bay Area Reporter</h3>
+                      <span class="community">LGBTQ+</span>
+                    </div>
+                  </div>
+                  <p>The nation's oldest continuously published LGBTQ+ newspaper, serving the Bay Area since 1971.</p>
+                  <a href="#" class="member-card-full-link">Visit ebar.com →</a>
+                </div>
+              </article>
+
+              <article class="member-card-full">
+                <div class="member-card-full-image"></div>
+                <div class="member-card-full-body">
+                  <div class="member-card-full-header">
+                    <div class="member-card-full-logo">Logo</div>
+                    <div class="member-card-full-info">
+                      <h3>Nichi Bei</h3>
+                      <span class="community">Japanese American</span>
+                    </div>
+                  </div>
+                  <p>Covering Japanese American news since 1899, with roots in SF's historic Japantown community.</p>
+                  <a href="#" class="member-card-full-link">Visit nichibei.org →</a>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MOCKUP 3: IMPACT AGGREGATOR
+         ========================================== -->
+
+    <section class="mockup-section" id="impact">
+      <div class="mockup-label">Mockup 03</div>
+      <h2 class="mockup-title">Impact Aggregator</h2>
+      <p class="mockup-desc">The core differentiator — curated journalism with documented outcomes. Not vanity metrics, but real-world impact evidence.</p>
+
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-url">baimc.org/impact</div>
+        </div>
+        <div class="browser-content">
+
+          <nav class="home-nav">
+            <div class="home-logo">ba<span class="dot">·</span>mc</div>
+            <ul class="home-nav-links">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Members</a></li>
+              <li><a href="#" style="color: var(--dot);">Impact</a></li>
+              <li><a href="#">Policy</a></li>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Join</a></li>
+            </ul>
+          </nav>
+
+          <header class="aggregator-header">
+            <h1>Journalism That Moves</h1>
+            <p>Stories from our coalition members that led to real outcomes in San Francisco communities.</p>
+          </header>
+
+          <section class="aggregator-featured">
+            <div class="featured-label">Featured Impact</div>
+            <div class="featured-story">
+              <div class="featured-image"></div>
+              <div class="featured-content">
+                <span class="impact-tag policy">Policy Changed</span>
+                <h2>Investigation leads to SF oversight reform</h2>
+                <p class="excerpt">A collaborative investigation documented systematic failures in city contracting that led to new transparency requirements passed unanimously by the Board.</p>
+                <div class="featured-meta">
+                  <span class="outlet">SF Public Press + Mission Local</span>
+                  <span>·</span>
+                  <span>December 2025</span>
+                </div>
+                <div class="featured-outcome">
+                  <strong>Outcome</strong>
+                  <p>Board passed Resolution 25-1847 requiring quarterly public reporting on contracts over $500k.</p>
+                </div>
+                <div class="share-tools">
+                  <button class="share-btn" title="Share on Twitter">𝕏</button>
+                  <button class="share-btn" title="Share on Facebook">f</button>
+                  <button class="share-btn" title="Share on LinkedIn">in</button>
+                  <button class="share-btn" title="Copy link">⎘</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="aggregator-filters">
+            <div class="filter-group">
+              <button class="filter-btn active">All Impact</button>
+              <button class="filter-btn">Policy Changed</button>
+              <button class="filter-btn">Accountability</button>
+              <button class="filter-btn">Resources</button>
+              <button class="filter-btn">Recognition</button>
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn">All Outlets ▾</button>
+            </div>
+          </div>
+
+          <section class="aggregator-feed">
+            <div class="feed-list">
+
+              <article class="feed-item">
+                <div class="feed-item-image"></div>
+                <div class="feed-item-content">
+                  <h4>Reporting connects 200+ families to rental assistance program</h4>
+                  <p class="meta"><span class="outlet">El Tecolote</span> · November 2025</p>
+                </div>
+                <div class="feed-item-outcome">
+                  <span class="impact-tag resources">Resources Connected</span>
+                  <p class="outcome-text">City confirmed 214 applications traced to coverage</p>
+                </div>
+              </article>
+
+              <article class="feed-item">
+                <div class="feed-item-image"></div>
+                <div class="feed-item-content">
+                  <h4>Investigation into Hunters Point cleanup wins national award</h4>
+                  <p class="meta"><span class="outlet">The Bay View</span> · October 2025</p>
+                </div>
+                <div class="feed-item-outcome">
+                  <span class="impact-tag recognition">Award</span>
+                  <p class="outcome-text">Society of Environmental Journalists</p>
+                </div>
+              </article>
+
+              <article class="feed-item">
+                <div class="feed-item-image"></div>
+                <div class="feed-item-content">
+                  <h4>Series on LGBTQ+ senior housing leads to expanded city program</h4>
+                  <p class="meta"><span class="outlet">Bay Area Reporter</span> · September 2025</p>
+                </div>
+                <div class="feed-item-outcome">
+                  <span class="impact-tag policy">Policy Changed</span>
+                  <p class="outcome-text">Mayor announced program expansion</p>
+                </div>
+              </article>
+
+              <article class="feed-item">
+                <div class="feed-item-image"></div>
+                <div class="feed-item-content">
+                  <h4>School board member resigns after accountability reporting</h4>
+                  <p class="meta"><span class="outlet">Mission Local</span> · August 2025</p>
+                </div>
+                <div class="feed-item-outcome">
+                  <span class="impact-tag accountability">Accountability</span>
+                  <p class="outcome-text">Resignation within 2 weeks</p>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MOCKUP 4: IDENTITY CONCEPT
+         ========================================== -->
+
+    <section class="mockup-section identity-section" id="identity">
+      <div class="mockup-label">Mockup 04</div>
+      <h2 class="mockup-title">Identity Concept: ba·mc</h2>
+      <p class="mockup-desc">The dot as joiner — connecting Bay Area and Media Coalition, representing the "i" in independent. Bold, dynamic, SF-native.</p>
+
+      <div class="identity-showcase">
+
+        <div class="identity-panel">
+          <h3>Primary Wordmark</h3>
+          <div class="logo-primary">
+            <span class="logo-wordmark">ba<span class="dot">·</span>mc</span>
+          </div>
+          <div class="logo-variations">
+            <div class="logo-var">
+              <span class="logo-var-text">ba<span class="dot">·</span>mc</span>
+              <span class="logo-var-label">Dark mode</span>
+            </div>
+            <div class="logo-var" style="background: var(--white); border-color: #e5e5e5;">
+              <span class="logo-var-text" style="color: var(--black);">ba<span class="dot">·</span>mc</span>
+              <span class="logo-var-label" style="color: #999;">Light mode</span>
+            </div>
+            <div class="logo-var" style="background: var(--dot);">
+              <span class="logo-var-text" style="color: white;">ba<span class="dot" style="color: rgba(255,255,255,0.5);">·</span>mc</span>
+              <span class="logo-var-label" style="color: rgba(255,255,255,0.5);">On brand</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="identity-panel">
+          <h3>The Dot as Joiner</h3>
+          <div class="reflective-demo">
+            <div class="reflective-logo">
+              <span class="ba">ba</span>
+              <span class="dot-container">
+                <span class="dot-core"></span>
+              </span>
+              <span class="mc">mc</span>
+            </div>
+          </div>
+          <p class="reflective-note">"ba" (Bay Area) and "mc" (Media Coalition) connected by the central dot — the "i" in independent, the bridge between communities and media.</p>
+        </div>
+
+      </div>
+
+      <div class="identity-showcase">
+
+        <div class="identity-panel">
+          <h3>Color System</h3>
+          <div class="color-palette">
+            <div class="color-swatch black"><span>Ink</span></div>
+            <div class="color-swatch white"><span>White</span></div>
+            <div class="color-swatch dot"><span>Dot</span></div>
+            <div class="color-swatch electric"><span>Electric</span></div>
+            <div class="color-swatch violet"><span>Violet</span></div>
+            <div class="color-swatch gold"><span>Gold</span></div>
+          </div>
+          <div class="type-showcase">
+            <div class="type-sample">
+              <div class="type-sample-label">Headlines — Syne</div>
+              <div class="type-sample-display">Journalism that moves San Francisco</div>
+            </div>
+            <div class="type-sample">
+              <div class="type-sample-label">Body — DM Sans</div>
+              <div class="type-sample-body">A coalition of ethnic and community publishers building sustainable infrastructure for local journalism in the San Francisco Bay Area.</div>
+            </div>
+            <div class="type-sample">
+              <div class="type-sample-label">UI / Data — Space Grotesk</div>
+              <div class="type-sample-mono">11 publications · 50% policy win · baimc.org/impact</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="identity-panel">
+          <h3>Applications</h3>
+          <div class="identity-applications">
+            <div class="app-example">
+              <div class="app-example-preview">
+                <div class="social-card-mock">
+                  <div class="logo-small">ba<span class="dot">·</span>mc</div>
+                  <h4>Journalism that changed SF policy in 2025</h4>
+                </div>
+              </div>
+              <div class="app-example-label">Social Card</div>
+            </div>
+            <div class="app-example">
+              <div class="app-example-preview">
+                <div class="email-sig-mock">
+                  <div class="name">Maya Chupkov</div>
+                  <div class="title">Media & Democracy Program</div>
+                  <div class="sig-logo">ba<span class="dot">·</span>mc</div>
+                </div>
+              </div>
+              <div class="app-example-label">Email Signature</div>
+            </div>
+            <div class="app-example">
+              <div class="app-example-preview">
+                <div class="favicon-mock">
+                  <div class="favicon-large">
+                    <div class="favicon-dot"></div>
+                  </div>
+                  <div class="favicon-sizes">
+                    <div class="f32"></div>
+                    <div class="f16"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="app-example-label">Favicon</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <footer class="presentation-footer">
+      <p><strong>BAIMCO Website Mockups</strong> — Prepared for stakeholder review, January 2026</p>
+      <p>Community photography placeholders indicate where real images of people, neighborhoods, and journalism in action will appear.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

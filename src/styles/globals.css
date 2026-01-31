@@ -1,0 +1,487 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SFIMC DESIGN SYSTEM: "SF Activism + Institutional"
+   Bold community colors with serif authority
+   Mission muralist vibrancy meets funder credibility
+   ============================================================ */
+
+@theme {
+  /* ============================================================
+     COLOR PALETTE
+     Inspired by Mission murals, SF activism, institutional trust
+     ============================================================ */
+
+  /* Primary - The Dot (Bold activism accent) */
+  --color-dot: #ff4f1f;
+  --color-dot-dark: #e63d10;
+  --color-dot-light: #ff7b52;
+  --color-dot-glow: oklch(65% 0.25 30 / 0.4);
+
+  /* Secondary - Coalition Teal (Institutional trust) */
+  --color-teal: #0b525b;
+  --color-teal-dark: #073b42;
+  --color-teal-light: #14919b;
+
+  /* Accent - Mission Gold (Community warmth) */
+  --color-gold: #dcae27;
+  --color-gold-dark: #b8930f;
+  --color-gold-light: #ffd24f;
+
+  /* Accent - Muralist Magenta (Activist energy) */
+  --color-magenta: #c41e6a;
+  --color-magenta-dark: #a01857;
+  --color-magenta-light: #e8508f;
+
+  /* Neutrals - Warm & Inviting */
+  --color-ink: #1a1a1a;
+  --color-charcoal: #2d2d2d;
+  --color-warm-gray: #78716c;
+  --color-slate: #636e72;
+  --color-mist: #e8e4db;
+  --color-cream: #faf7f2;
+  --color-paper: #ffffff;
+
+  /* Semantic */
+  --color-success: #0b525b;
+  --color-warning: #dcae27;
+  --color-error: #c41e6a;
+  --color-info: #0b525b;
+
+  /* Impact Category Colors */
+  --color-impact-policy: #ff4f1f;
+  --color-impact-accountability: #c41e6a;
+  --color-impact-resources: #0b525b;
+  --color-impact-recognition: #dcae27;
+  --color-impact-community: #14919b;
+
+  /* ============================================================
+     TYPOGRAPHY
+     Serif authority + Sans clarity + Mono data
+     ============================================================ */
+
+  --font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --font-accent: 'Syne', sans-serif;
+
+  /* ============================================================
+     SPACING (8px base unit)
+     ============================================================ */
+
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  --space-4xl: 6rem;     /* 96px */
+
+  /* ============================================================
+     RADIUS
+     ============================================================ */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ============================================================
+     SHADOWS
+     ============================================================ */
+
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.05);
+  --shadow-md: 0 4px 12px oklch(0% 0 0 / 0.08);
+  --shadow-lg: 0 8px 24px oklch(0% 0 0 / 0.1);
+  --shadow-xl: 0 16px 48px oklch(0% 0 0 / 0.12);
+  --shadow-float: 0 25px 50px oklch(0% 0 0 / 0.15);
+  --shadow-glow-dot: 0 0 30px var(--color-dot-glow);
+
+  /* ============================================================
+     ANIMATION
+     ============================================================ */
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   TYPOGRAPHY SCALE
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  /* Let headings inherit color from parent - allows dark sections to have white headings */
+}
+
+/* Display sizes - for hero headlines */
+.display-xl {
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.display-lg {
+  font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.display-md {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.display-sm {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Body sizes */
+.body-lg {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.body-md {
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+/* Label/UI text */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   THE DOT - Brand Identity Element
+   The "i" in sf·imc - the joining letter
+   ============================================================ */
+
+.dot {
+  color: var(--color-dot);
+  display: inline-block;
+}
+
+.dot-glow {
+  text-shadow: 0 0 20px var(--color-dot-glow);
+}
+
+.dot-pulse {
+  animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    text-shadow: 0 0 20px var(--color-dot-glow);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 40px var(--color-dot-glow), 0 0 60px var(--color-dot-glow);
+    transform: scale(1.05);
+  }
+}
+
+/* ============================================================
+   IMPACT TAGS
+   Color-coded outcome indicators
+   ============================================================ */
+
+.impact-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.impact-tag-policy {
+  background: oklch(from var(--color-impact-policy) l c h / 0.12);
+  color: var(--color-impact-policy);
+  border: 1px solid oklch(from var(--color-impact-policy) l c h / 0.25);
+}
+
+.impact-tag-accountability {
+  background: oklch(from var(--color-impact-accountability) l c h / 0.12);
+  color: var(--color-impact-accountability);
+  border: 1px solid oklch(from var(--color-impact-accountability) l c h / 0.25);
+}
+
+.impact-tag-resources {
+  background: oklch(from var(--color-impact-resources) l c h / 0.12);
+  color: var(--color-impact-resources);
+  border: 1px solid oklch(from var(--color-impact-resources) l c h / 0.25);
+}
+
+.impact-tag-recognition {
+  background: oklch(from var(--color-impact-recognition) l c h / 0.12);
+  color: var(--color-impact-recognition);
+  border: 1px solid oklch(from var(--color-impact-recognition) l c h / 0.25);
+}
+
+.impact-tag-community {
+  background: oklch(from var(--color-impact-community) l c h / 0.12);
+  color: var(--color-impact-community);
+  border: 1px solid oklch(from var(--color-impact-community) l c h / 0.25);
+}
+
+/* Dark variant for dark backgrounds */
+.impact-tag-dark {
+  background: oklch(0% 0 0 / 0.4);
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: all var(--duration-normal) var(--ease-smooth);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-dot {
+  background: var(--color-dot);
+  color: white;
+}
+
+.btn-dot:hover {
+  background: var(--color-dot-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--color-dot-glow);
+}
+
+.btn-teal {
+  background: var(--color-teal);
+  color: white;
+}
+
+.btn-teal:hover {
+  background: var(--color-teal-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px oklch(from var(--color-teal) l c h / 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-ink);
+  border: 2px solid var(--color-mist);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-dot);
+  color: var(--color-dot);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+}
+
+.btn-ghost:hover {
+  background: var(--color-mist);
+}
+
+/* Size variants */
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+
+.card {
+  background: var(--color-paper);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-mist);
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.card-dark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: oklch(100% 0 0 / 0.1);
+}
+
+.card-dark:hover {
+  border-color: var(--color-dot);
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+
+.section {
+  padding: var(--space-4xl) var(--space-xl);
+}
+
+.section-dark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.section-cream {
+  background: var(--color-cream);
+}
+
+.section-paper {
+  background: var(--color-paper);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+/* Text gradient */
+.text-gradient-dot {
+  background: linear-gradient(135deg, var(--color-dot) 0%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-teal {
+  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-teal-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Background patterns */
+.bg-dots {
+  background-image: radial-gradient(circle, var(--color-mist) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-noise {
+  position: relative;
+}
+
+.bg-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s var(--ease-smooth) forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* Selection */
+::selection {
+  background: var(--color-gold-light);
+  color: var(--color-ink);
+}
+
+/* Focus */
+:focus-visible {
+  outline: 3px solid var(--color-dot);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-mist);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate);
+}

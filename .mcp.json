@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tarmac": {
+      "command": "node",
+      "args": ["/opt/homebrew/lib/node_modules/@tarmac/mcp-server/dist/index.js"]
+    }
+  }
+}

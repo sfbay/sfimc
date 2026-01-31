@@ -1,0 +1,19 @@
+/* Custom admin styles */
+
+/* Fix label contrast - override global CSS bleeding in */
+:root {
+  --theme-text: #1a1a1a;
+}
+
+/* Ensure form labels are visible */
+label {
+  color: #1a1a1a !important;
+  opacity: 1 !important;
+}
+
+/* Fix any text that's too light */
+.field-type,
+.field-label,
+[class*="label"] {
+  color: #1a1a1a !important;
+}
