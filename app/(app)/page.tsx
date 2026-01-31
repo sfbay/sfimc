@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { ImpactTag } from '@/components/impact/ImpactTag'
+import { Hero } from '@/components/Hero'
 import { MemberCard } from '@/components/members/MemberCard'
 import { ImpactCard } from '@/components/impact/ImpactCard'
-import { StatsBar } from '@/components/home/StatsBar'
 import { PolicyBanner } from '@/components/home/PolicyBanner'
 
 // Placeholder data - will be replaced with Payload queries
@@ -86,44 +85,10 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-[var(--color-ink)] text-[var(--color-paper)] overflow-hidden">
-        {/* Background Glow */}
-        <div className="absolute top-0 right-0 w-1/2 h-full">
-          <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[var(--color-dot)] opacity-10 blur-[120px] rounded-full" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[var(--color-teal)] opacity-10 blur-[100px] rounded-full" />
-        </div>
-
-        <div className="container relative py-24 lg:py-32">
-          <div className="max-w-3xl">
-            <h1 className="display-xl mb-6">
-              Journalism that{' '}
-              <span className="text-gradient-dot">moves</span>{' '}
-              San Francisco
-            </h1>
-            <p className="text-xl text-[var(--color-warm-gray)] leading-relaxed mb-8 max-w-2xl">
-              We're a coalition of ethnic and community publishers building the infrastructure
-              for local news that actually makes a difference.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/impact" className="btn btn-dot">
-                Explore our impact
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-              <Link href="/members" className="btn btn-outline text-[var(--color-paper)] border-[var(--color-warm-gray)] hover:border-[var(--color-paper)]">
-                Meet our members
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Policy Win Banner */}
       <PolicyBanner />
-
-      {/* Stats Bar */}
-      <StatsBar />
 
       {/* Members Section */}
       <section className="section section-paper">
