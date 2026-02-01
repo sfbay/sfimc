@@ -2772,6 +2772,103 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-warm-gray);
 }
 
+/* Live story skeleton loading */
+.live-story-skeleton {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.live-story-skeleton .live-story-card-inner {
+  border-left-color: var(--color-mist);
+}
+
+.live-story-skeleton-meta {
+  height: 20px;
+  width: 60%;
+  background: linear-gradient(90deg, var(--color-mist) 25%, var(--color-cream) 50%, var(--color-mist) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.live-story-skeleton-title {
+  height: 24px;
+  width: 90%;
+  background: linear-gradient(90deg, var(--color-mist) 25%, var(--color-cream) 50%, var(--color-mist) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.live-story-skeleton-excerpt {
+  height: 48px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-mist) 25%, var(--color-cream) 50%, var(--color-mist) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.live-story-skeleton-category {
+  height: 24px;
+  width: 80px;
+  background: linear-gradient(90deg, var(--color-mist) 25%, var(--color-cream) 50%, var(--color-mist) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-top: auto;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Live story error state */
+.live-story-error {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: white;
+  border-radius: 1rem;
+  border: 1px dashed var(--color-mist);
+}
+
+.live-story-error p {
+  color: var(--color-warm-gray);
+  margin-bottom: 1rem;
+}
+
+.live-story-error-retry {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-dot);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.live-story-error-retry:hover {
+  background: oklch(from var(--color-dot) 95% 0.02 h);
+}
+
+/* Last updated indicator */
+.live-story-updated {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* ============================================================
    MEMBER CAROUSEL
    Showcases coalition members with community context
