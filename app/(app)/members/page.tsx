@@ -1,7 +1,14 @@
 import Link from 'next/link'
 import { PublicationCard } from '@/components/cards'
 import { members, memberCategories, getMembersByCategory } from '@/data/members'
-import { Search } from 'lucide-react'
+
+function SearchIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+  )
+}
 
 interface PageProps {
   searchParams: Promise<{ category?: string; q?: string }>
@@ -120,7 +127,7 @@ export default async function MembersPage({ searchParams }: PageProps) {
             {/* Search */}
             <form action="/members" className="relative">
               <input type="hidden" name="category" value={activeCategory} />
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-warm-gray)]" />
+              <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-warm-gray)]" />
               <input
                 type="search"
                 name="q"
@@ -194,7 +201,7 @@ export default async function MembersPage({ searchParams }: PageProps) {
           ) : (
             <div className="text-center py-16">
               <div className="w-16 h-16 bg-[var(--color-mist)] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-6 h-6 text-[var(--color-warm-gray)]" />
+                <SearchIcon className="w-6 h-6 text-[var(--color-warm-gray)]" />
               </div>
               <p className="text-[var(--color-warm-gray)] text-lg mb-2">
                 No publications found

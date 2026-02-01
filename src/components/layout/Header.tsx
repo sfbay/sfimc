@@ -3,8 +3,24 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Logo } from '@/components/brand'
+
+function MenuIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  )
+}
+
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  )
+}
 
 const navLinks = [
   { href: '/about', label: 'About' },
@@ -12,6 +28,7 @@ const navLinks = [
   { href: '/impact', label: 'Impact' },
   { href: '/news', label: 'News' },
   { href: '/policy', label: 'Policy' },
+  { href: 'https://resonatelocal.org', label: 'Resonate', external: true },
   { href: '/join', label: 'Join' },
 ]
 
@@ -112,39 +129,28 @@ export function Header() {
       >
         <nav className="container flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-0.5 group relative z-10">
-            <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-ink)] group-hover:text-[var(--color-ink)]">
-              sf
-            </span>
-            <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-dot)] dot-pulse">
-              ·
-            </span>
-            <span className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-ink)] group-hover:text-[var(--color-ink)]">
-              imc
-            </span>
+          <Link href="/" className="relative z-10">
+            <Logo size="lg" />
           </Link>
 
           {/* Navigation Links - Desktop */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+          <nav className="nav-pill hidden md:flex" aria-label="Main navigation">
+            {navLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'relative px-3 py-2 text-sm font-medium transition-colors rounded-lg',
-                  isActive(link.href)
-                    ? 'text-[var(--color-dot)]'
-                    : 'text-[var(--color-warm-gray)] hover:text-[var(--color-ink)] hover:bg-[var(--color-mist)]/50'
+                  'nav-pill-link',
+                  !link.external && isActive(link.href) && 'is-active'
                 )}
+                style={{ '--link-index': index } as React.CSSProperties}
+                {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
               >
-                {link.label}
-                {/* Active indicator */}
-                {isActive(link.href) && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--color-dot)] rounded-full" />
-                )}
+                <span className="nav-pill-link-text">{link.label}</span>
+                <span className="nav-pill-link-bg" aria-hidden="true" />
               </Link>
             ))}
-          </div>
+          </nav>
 
           {/* CTA Button - Desktop */}
           <div className="hidden md:block">
@@ -174,9 +180,9 @@ export function Header() {
             aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6" aria-hidden="true" />
+              <XIcon className="w-6 h-6" />
             ) : (
-              <Menu className="w-6 h-6" aria-hidden="true" />
+              <MenuIcon className="w-6 h-6" />
             )}
           </button>
         </nav>
@@ -224,19 +230,24 @@ export function Header() {
                   className={cn(
                     'block py-4 text-2xl font-[family-name:var(--font-display)] font-semibold transition-all',
                     'border-b border-white/10',
-                    isActive(link.href)
+                    !link.external && isActive(link.href)
                       ? 'text-[var(--color-dot)]'
                       : 'text-[var(--color-paper)] hover:text-[var(--color-dot)] hover:pl-2'
                   )}
                   style={{
                     transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms',
                   }}
+                  {...(link.external && { target: '_blank', rel: 'noopener noreferrer' })}
                 >
                   <span className="flex items-center justify-between">
                     {link.label}
-                    {isActive(link.href) && (
+                    {link.external ? (
+                      <svg className="w-5 h-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    ) : isActive(link.href) ? (
                       <span className="w-2 h-2 bg-[var(--color-dot)] rounded-full" />
-                    )}
+                    ) : null}
                   </span>
                 </Link>
               ))}

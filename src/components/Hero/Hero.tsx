@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { RotatingWord } from './RotatingWord'
 
 interface HeroProps {
   headline?: string
+  /** @deprecated Use rotating words instead */
   highlightWord?: string
   subheadline?: string
   primaryCta?: { label: string; href: string }
@@ -34,6 +36,10 @@ export function Hero({
     <section className="hero">
       {/* Animated Background - Decorative */}
       <div className="hero-bg" aria-hidden="true">
+        {/* Background Photo */}
+        <div className="hero-photo" />
+        <div className="hero-photo-overlay" />
+
         {/* The Dot - Animated Brand Element */}
         <div className="hero-dot">
           <div className="hero-dot-core" />
@@ -64,7 +70,7 @@ export function Hero({
               {headline}
             </span>
             <span className={`hero-headline-highlight ${mounted ? 'animate-in stagger-2' : ''}`}>
-              {highlightWord}
+              <RotatingWord isReady={mounted} interval={6000} />
             </span>
             <span className={`hero-headline-line ${mounted ? 'animate-in stagger-3' : ''}`}>
               San Francisco
