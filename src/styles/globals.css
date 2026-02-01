@@ -2649,9 +2649,99 @@ h1, h2, h3, h4, h5, h6 {
   border-left-width: 5px;
 }
 
+/* Card body - contains text content */
+.live-story-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Featured card image - large hero style */
+.live-story-card-image {
+  position: relative;
+  margin: -1.25rem -1.25rem 1.25rem -1.25rem;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.live-story-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.live-story-card:hover .live-story-card-img {
+  transform: scale(1.05);
+}
+
+.live-story-card-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+/* Secondary card thumbnail - small side image */
+.live-story-card-thumb {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.live-story-card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.live-story-card:hover .live-story-card-thumb-img {
+  transform: scale(1.1);
+}
+
+/* Cards with images - layout adjustments */
+.live-story-card.has-image:not(.live-story-card-featured) .live-story-card-inner {
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.live-story-card.has-image:not(.live-story-card-featured) .live-story-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Featured card special styles */
 .live-story-card-featured .live-story-card-inner {
-  padding: 2rem;
+  padding: 0;
+  border-left: none;
+  border-bottom: 4px solid var(--story-color);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.live-story-card-featured .live-story-card-body {
+  padding: 1.5rem;
+}
+
+.live-story-card-featured.has-image .live-story-card-image {
+  margin: 0;
+  height: 220px;
+  border-radius: 0;
+}
+
+.live-story-card-featured:hover .live-story-card-inner {
+  border-left-width: 0;
+  border-bottom-width: 6px;
 }
 
 .live-story-card-featured .live-story-title {
@@ -2660,6 +2750,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .live-story-card-featured .live-story-excerpt {
   display: block;
+}
+
+@media (min-width: 768px) {
+  .live-story-card-featured .live-story-card-image {
+    height: 280px;
+  }
+
+  .live-story-card-thumb {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 /* Card meta */

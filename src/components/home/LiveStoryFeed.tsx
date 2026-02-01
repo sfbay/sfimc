@@ -197,7 +197,7 @@ export function LiveStoryFeed() {
           {/* Featured story - large card */}
           {stories[0] && (
             <article
-              className={`live-story-card live-story-card-featured ${isVisible ? 'animate-in' : ''}`}
+              className={`live-story-card live-story-card-featured ${stories[0].imageUrl ? 'has-image' : ''} ${isVisible ? 'animate-in' : ''}`}
               style={{ '--story-color': stories[0].publicationColor, '--delay': '0' } as React.CSSProperties}
             >
               <a
@@ -206,24 +206,37 @@ export function LiveStoryFeed() {
                 rel="noopener noreferrer"
                 className="live-story-card-inner"
               >
-                <div className="live-story-card-meta">
-                  {stories[0].publicationLogo && (
-                    <Image
-                      src={stories[0].publicationLogo}
-                      alt={stories[0].publication}
-                      width={24}
-                      height={24}
-                      className="live-story-pub-logo"
+                {stories[0].imageUrl && (
+                  <div className="live-story-card-image">
+                    <img
+                      src={stories[0].imageUrl}
+                      alt=""
+                      className="live-story-card-img"
+                      loading="lazy"
                     />
-                  )}
-                  <span className="live-story-pub-name">{stories[0].publication}</span>
-                  <span className="live-story-separator">·</span>
-                  <span className="live-story-time">{stories[0].timeAgo}</span>
-                </div>
-                <h3 className="live-story-title">{stories[0].title}</h3>
-                <p className="live-story-excerpt">{stories[0].excerpt}</p>
-                <div className="live-story-category">
-                  <span className="live-story-category-tag">{stories[0].category}</span>
+                    <div className="live-story-card-image-overlay" />
+                  </div>
+                )}
+                <div className="live-story-card-body">
+                  <div className="live-story-card-meta">
+                    {stories[0].publicationLogo && (
+                      <Image
+                        src={stories[0].publicationLogo}
+                        alt={stories[0].publication}
+                        width={24}
+                        height={24}
+                        className="live-story-pub-logo"
+                      />
+                    )}
+                    <span className="live-story-pub-name">{stories[0].publication}</span>
+                    <span className="live-story-separator">·</span>
+                    <span className="live-story-time">{stories[0].timeAgo}</span>
+                  </div>
+                  <h3 className="live-story-title">{stories[0].title}</h3>
+                  <p className="live-story-excerpt">{stories[0].excerpt}</p>
+                  <div className="live-story-category">
+                    <span className="live-story-category-tag">{stories[0].category}</span>
+                  </div>
                 </div>
               </a>
             </article>
@@ -233,7 +246,7 @@ export function LiveStoryFeed() {
           {stories.slice(1).map((story, index) => (
             <article
               key={story.id}
-              className={`live-story-card ${isVisible ? 'animate-in' : ''}`}
+              className={`live-story-card ${story.imageUrl ? 'has-image' : ''} ${isVisible ? 'animate-in' : ''}`}
               style={{ '--story-color': story.publicationColor, '--delay': index + 1 } as React.CSSProperties}
             >
               <a
@@ -242,23 +255,35 @@ export function LiveStoryFeed() {
                 rel="noopener noreferrer"
                 className="live-story-card-inner"
               >
-                <div className="live-story-card-meta">
-                  {story.publicationLogo && (
-                    <Image
-                      src={story.publicationLogo}
-                      alt={story.publication}
-                      width={20}
-                      height={20}
-                      className="live-story-pub-logo"
+                {story.imageUrl && (
+                  <div className="live-story-card-thumb">
+                    <img
+                      src={story.imageUrl}
+                      alt=""
+                      className="live-story-card-thumb-img"
+                      loading="lazy"
                     />
-                  )}
-                  <span className="live-story-pub-name">{story.publication}</span>
-                  <span className="live-story-separator">·</span>
-                  <span className="live-story-time">{story.timeAgo}</span>
-                </div>
-                <h3 className="live-story-title">{story.title}</h3>
-                <div className="live-story-category">
-                  <span className="live-story-category-tag">{story.category}</span>
+                  </div>
+                )}
+                <div className="live-story-card-body">
+                  <div className="live-story-card-meta">
+                    {story.publicationLogo && (
+                      <Image
+                        src={story.publicationLogo}
+                        alt={story.publication}
+                        width={20}
+                        height={20}
+                        className="live-story-pub-logo"
+                      />
+                    )}
+                    <span className="live-story-pub-name">{story.publication}</span>
+                    <span className="live-story-separator">·</span>
+                    <span className="live-story-time">{story.timeAgo}</span>
+                  </div>
+                  <h3 className="live-story-title">{story.title}</h3>
+                  <div className="live-story-category">
+                    <span className="live-story-category-tag">{story.category}</span>
+                  </div>
                 </div>
               </a>
             </article>
