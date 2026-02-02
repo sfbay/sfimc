@@ -50,7 +50,7 @@ const FALLBACK_FEEDS: MemberFeed[] = [
     memberId: 'sf-public-press',
     memberName: 'SF Public Press',
     memberSlug: 'sf-public-press',
-    rssUrl: 'https://sfpublicpress.org/feed/',
+    rssUrl: 'https://www.sfpublicpress.org/feed/',
   },
   {
     memberId: 'bay-area-reporter',
@@ -92,7 +92,7 @@ const FALLBACK_FEEDS: MemberFeed[] = [
     memberId: 'ingleside-light',
     memberName: 'Ingleside Light',
     memberSlug: 'ingleside-light',
-    rssUrl: 'https://inglesidelight.com/feed/',
+    rssUrl: 'https://www.inglesidelight.com/rss/',
   },
 ]
 
@@ -152,6 +152,21 @@ export async function GET(request: Request) {
         }))
 
       console.log(`[RSS Poll] Found ${memberFeeds.length} members with RSS feeds in Payload`)
+
+      // Override incorrect URLs stored in Payload with correct ones
+      const URL_OVERRIDES: Record<string, string> = {
+        'el-tecolote': 'https://eltecolote.org/content/en/feed/',
+        'bay-area-reporter': 'https://www.ebar.com/rss/23/News',
+        'ingleside-light': 'https://www.inglesidelight.com/rss/',
+        'sf-public-press': 'https://www.sfpublicpress.org/feed/',
+      }
+
+      memberFeeds = memberFeeds.map((feed) => {
+        if (URL_OVERRIDES[feed.memberSlug]) {
+          return { ...feed, rssUrl: URL_OVERRIDES[feed.memberSlug] }
+        }
+        return feed
+      })
     } catch (err) {
       console.warn('[RSS Poll] Failed to fetch members from Payload, using fallback:', err)
     }

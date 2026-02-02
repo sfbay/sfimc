@@ -91,8 +91,8 @@ The Bay View has been at the forefront of environmental justice reporting, parti
     category: ['investigative'],
     description: 'Nonprofit investigative newsroom producing deep-dive reporting on housing, government, and public safety.',
     longDescription: `SF Public Press is a nonprofit, nonpartisan news organization dedicated to investigative and explanatory journalism that serves San Francisco. Founded in 2009, SF Public Press produces in-depth reporting on critical issues including housing, homelessness, government accountability, and public safety.`,
-    url: 'https://sfpublicpress.org',
-    rssUrl: 'https://sfpublicpress.org/feed/',
+    url: 'https://www.sfpublicpress.org',
+    rssUrl: 'https://www.sfpublicpress.org/feed/',
     foundedYear: 2009,
     color: '#ff4f1f',
     socialLinks: {
@@ -117,7 +117,7 @@ The Bay View has been at the forefront of environmental justice reporting, parti
     url: 'https://ebar.com',
     rssUrl: 'https://www.ebar.com/rss/23/News',
     foundedYear: 1971,
-    color: '#c41e6a',
+    color: '#7c3aed',
     socialLinks: {
       twitter: 'https://twitter.com/ebabordo',
       facebook: 'https://facebook.com/bayareareporter',
@@ -313,8 +313,8 @@ The publication champions the San Francisco that exists beyond the tech boom—a
     longDescription: `The Ingleside Light is a hyperlocal news publication dedicated to covering San Francisco's Ingleside neighborhood and surrounding areas including Oceanview, Merced Heights, and the Excelsior.
 
 The publication focuses on community news, local events, neighborhood development, and the stories of Ingleside residents, filling a crucial gap in coverage for this often-overlooked part of the city.`,
-    url: 'https://inglesidelight.com',
-    rssUrl: 'https://inglesidelight.com/feed/',
+    url: 'https://www.inglesidelight.com',
+    rssUrl: 'https://www.inglesidelight.com/rss/',
     foundedYear: 2018,
     color: '#0891b2',
     socialLinks: {

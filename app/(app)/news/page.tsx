@@ -1,7 +1,18 @@
 import Link from 'next/link'
-import { Rss, Filter } from 'lucide-react'
+import { Rss } from 'lucide-react'
 import { getPayloadClient } from '@/lib/payload/client'
-import { NewsGrid, SearchBar, type NewsItem } from '@/components/news'
+import {
+  SearchBar,
+  NewsFeedHero,
+  PublisherFilterBar,
+  NewsFeedMasonry,
+  CoalitionLogoStrip,
+  type NewsItem,
+  type PublisherFilter,
+  type HeroPublisher,
+  type CoalitionMember,
+} from '@/components/news'
+import { CategoryDropdown } from '@/components/news/CategoryDropdown'
 import { members } from '@/data/members'
 import { getMemberMeta, formatRelativeTime } from '@/lib/news'
 import type { Where } from 'payload'
@@ -9,17 +20,12 @@ import type { Where } from 'payload'
 /**
  * News Page - Aggregated feed from all member publications
  *
- * Features:
- * - Real-time RSS data from Payload CMS
- * - Filter by publication and category
- * - Full-text search
- * - Progressive "Load More" pagination
+ * Redesigned for elegance and efficiency:
+ * - Compact hero bar with live indicator
+ * - Prominent publisher filter with large logos
+ * - Category dropdown (not sprawling list)
+ * - Content visible immediately
  */
-
-const memberFilters = [
-  { value: 'all', label: 'All Publications' },
-  ...members.map((m) => ({ value: m.slug, label: m.name })),
-]
 
 interface PageProps {
   searchParams: Promise<{ member?: string; category?: string; search?: string }>
@@ -61,24 +67,70 @@ export default async function NewsPage({ searchParams }: PageProps) {
   const result = await payload.find({
     collection: 'news-items',
     where,
-    limit: 20,
+    limit: 30,
     sort: '-pubDate',
   })
 
-  // Get unique categories for filter
+  // Get all items for category and publisher counts
   const allItemsResult = await payload.find({
     collection: 'news-items',
     limit: 0,
   })
 
-  const categories = [
-    'all',
-    ...new Set(
-      allItemsResult.docs
-        .map((d) => d.category)
-        .filter(Boolean) as string[]
-    ),
-  ].sort()
+  // Get unique categories with counts
+  const categoryCounts: Record<string, number> = {}
+  allItemsResult.docs.forEach((doc) => {
+    const cat = doc.category as string
+    if (cat) {
+      categoryCounts[cat] = (categoryCounts[cat] || 0) + 1
+    }
+  })
+
+  const categories = Object.entries(categoryCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, count]) => ({ name, count }))
+
+  // Calculate story counts per publisher
+  const publisherCounts: Record<string, number> = {}
+  allItemsResult.docs.forEach((doc) => {
+    const slug = doc.memberSlug as string
+    if (slug) {
+      publisherCounts[slug] = (publisherCounts[slug] || 0) + 1
+    }
+  })
+
+  // Build publisher data for components
+  const publisherFilters: PublisherFilter[] = members
+    .map((m) => {
+      const meta = getMemberMeta(m.slug)
+      return {
+        slug: m.slug,
+        name: m.name,
+        logo: meta.logo || undefined,
+        color: m.color || '#78716c',
+        storyCount: publisherCounts[m.slug] || 0,
+      }
+    })
+    .filter((p) => p.storyCount > 0)
+    .sort((a, b) => b.storyCount - a.storyCount)
+
+  const heroPublishers: HeroPublisher[] = publisherFilters.map((p) => ({
+    name: p.name,
+    slug: p.slug,
+    logo: p.logo,
+    color: p.color,
+  }))
+
+  const coalitionMembers: CoalitionMember[] = members.map((m) => {
+    const meta = getMemberMeta(m.slug)
+    return {
+      name: m.name,
+      slug: m.slug,
+      logo: meta.logo || undefined,
+      color: m.color || '#78716c',
+      hasRecentStories: (publisherCounts[m.slug] || 0) > 0,
+    }
+  })
 
   // Transform to NewsItem format
   const newsItems: NewsItem[] = result.docs.map((doc) => {
@@ -102,109 +154,58 @@ export default async function NewsPage({ searchParams }: PageProps) {
   })
 
   const hasFiltersActive = activeMember !== 'all' || activeCategory !== 'all' || searchQuery
+  const activePublisherCount = publisherFilters.length
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative bg-[var(--color-ink)] text-[var(--color-paper)] py-16 lg:py-24 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-[var(--color-teal)] opacity-10 blur-[100px] rounded-full" />
-          <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-[var(--color-dot)] opacity-10 blur-[80px] rounded-full" />
-        </div>
+      {/* Compact Hero */}
+      <NewsFeedHero
+        storyCount={allItemsResult.totalDocs}
+        publisherCount={activePublisherCount}
+      />
 
-        <div className="container relative">
-          <div className="max-w-3xl">
-            {/* Eyebrow */}
-            <div className="flex items-center gap-2 mb-6">
-              <Rss className="w-4 h-4 text-[var(--color-dot)]" />
-              <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-warm-gray)]">
-                Aggregated Feed
-              </span>
-            </div>
-
-            <h1 className="display-lg mb-4">
-              Community News Feed
-              <span className="text-[var(--color-dot)]">.</span>
-            </h1>
-
-            <p className="text-xl text-[var(--color-warm-gray)] leading-relaxed">
-              The latest journalism from our coalition members — aggregated in one place,
-              always linking back to the source.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Filters */}
+      {/* Sticky Filter Bar */}
       <section className="bg-[var(--color-charcoal)] border-b border-[var(--color-ink)] sticky top-0 z-30">
         <div className="container py-4">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-            {/* Publication filters */}
-            <div className="flex-1">
-              <div className="flex flex-wrap gap-2">
-                {memberFilters.map((m) => (
-                  <Link
-                    key={m.value}
-                    href={m.value === 'all' ? '/news' : `/news?member=${m.value}`}
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                      activeMember === m.value
-                        ? 'bg-[var(--color-dot)] text-white'
-                        : 'bg-transparent text-[var(--color-warm-gray)] hover:text-white border border-white/20 hover:border-white/40'
-                    }`}
-                  >
-                    {m.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
+          {/* Publisher Filter Bar - Main Feature */}
+          <PublisherFilterBar
+            publishers={publisherFilters}
+            activePublisher={activeMember}
+            baseUrl="/news"
+          />
 
-            {/* Search */}
-            <div className="w-full lg:w-64">
-              <SearchBar placeholder="Search stories..." />
-            </div>
-          </div>
+          {/* Secondary row: Category dropdown + Search */}
+          <div className="flex items-center gap-3 pt-3">
+            {/* Category Dropdown */}
+            <CategoryDropdown
+              categories={categories}
+              activeCategory={activeCategory}
+              activeMember={activeMember}
+            />
 
-          {/* Category filters + count */}
-          <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/10">
-            <Filter className="w-4 h-4 text-[var(--color-warm-gray)]" />
-            <div className="flex gap-1 flex-wrap">
-              {categories.map((cat) => {
-                const href =
-                  cat === 'all'
-                    ? activeMember === 'all'
-                      ? '/news'
-                      : `/news?member=${activeMember}`
-                    : activeMember === 'all'
-                      ? `/news?category=${cat}`
-                      : `/news?member=${activeMember}&category=${cat}`
-                return (
-                  <Link
-                    key={cat}
-                    href={href}
-                    className={`px-2 py-1 rounded text-xs font-medium transition-all ${
-                      activeCategory === cat
-                        ? 'bg-[var(--color-teal)] text-white'
-                        : 'text-[var(--color-warm-gray)] hover:text-white'
-                    }`}
-                  >
-                    {cat === 'all' ? 'All' : cat}
-                  </Link>
-                )
-              })}
+            {/* Active filter indicator */}
+            {hasFiltersActive && (
+              <Link
+                href="/news"
+                className="text-xs text-[var(--color-warm-gray)] hover:text-white transition-colors"
+              >
+                Clear filters
+              </Link>
+            )}
+
+            {/* Search - pushed to right */}
+            <div className="ml-auto w-full max-w-[200px] lg:max-w-[240px]">
+              <SearchBar placeholder="Search..." />
             </div>
-            <span className="text-[var(--color-warm-gray)] text-sm ml-auto">
-              {result.totalDocs} stories
-            </span>
           </div>
         </div>
       </section>
 
       {/* News Content */}
-      <section className="section section-paper">
+      <section className="section section-paper py-5">
         <div className="container">
           {newsItems.length > 0 ? (
-            <NewsGrid
+            <NewsFeedMasonry
               initialItems={newsItems}
               initialTotal={result.totalDocs}
               initialHasMore={result.hasNextPage}
@@ -214,6 +215,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
                 search: searchQuery || undefined,
               }}
               showFeatured={!hasFiltersActive}
+              publishers={heroPublishers}
             />
           ) : (
             <div className="text-center py-16">
@@ -238,8 +240,21 @@ export default async function NewsPage({ searchParams }: PageProps) {
         </div>
       </section>
 
+      {/* Coalition Footer */}
+      <section className="section section-cream py-8">
+        <div className="container">
+          <CoalitionLogoStrip
+            members={coalitionMembers}
+            activeMember={activeMember !== 'all' ? activeMember : undefined}
+            baseUrl="/news"
+            showTagline
+            variant="light"
+          />
+        </div>
+      </section>
+
       {/* RSS Subscribe CTA */}
-      <section className="section section-cream">
+      <section className="section section-paper py-10 border-t border-[var(--color-mist)]">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <div className="w-12 h-12 bg-[var(--color-dot)]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
