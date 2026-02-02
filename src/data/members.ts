@@ -152,6 +152,205 @@ The Bay View has been at the forefront of environmental justice reporting, parti
       frequency: 'Bi-weekly',
     },
   },
+  {
+    id: '7',
+    name: 'J. The Jewish News of Northern California',
+    slug: 'j-weekly',
+    community: 'Bay Area · Jewish',
+    neighborhood: 'Citywide',
+    category: ['ethnic'],
+    description: 'The Jewish community\'s news source for the Bay Area since 1895, covering culture, politics, and community life.',
+    longDescription: `J. The Jewish News of Northern California is the oldest Jewish newspaper west of the Mississippi, founded in 1895. It serves the Bay Area's vibrant Jewish community with news, cultural coverage, opinion, and community events.
+
+The publication covers local, national, and international Jewish news while maintaining a strong focus on Bay Area community life.`,
+    url: 'https://jweekly.com',
+    rssUrl: 'https://jweekly.com/feed/',
+    foundedYear: 1895,
+    color: '#1e40af',
+    socialLinks: {
+      twitter: 'https://twitter.com/jabordo',
+      facebook: 'https://facebook.com/jabordo',
+      instagram: 'https://instagram.com/jabordo',
+    },
+    stats: {
+      founded: 1895,
+      languages: ['English'],
+      frequency: 'Weekly',
+    },
+  },
+  {
+    id: '8',
+    name: 'Richmond Review',
+    slug: 'richmond-review',
+    community: 'Richmond District',
+    neighborhood: 'Richmond District',
+    category: ['neighborhood'],
+    description: 'Neighborhood newspaper serving San Francisco\'s Richmond District with local news and community coverage.',
+    longDescription: `The Richmond Review is a neighborhood newspaper dedicated to serving San Francisco's Richmond District. Part of the SF Media Co. family of publications, the Richmond Review covers local news, community events, small business stories, and neighborhood issues.
+
+The paper serves as a vital community resource for Richmond District residents, connecting neighbors and highlighting local voices.`,
+    url: 'https://sfrichmondreview.com',
+    rssUrl: 'https://sfrichmondreview.com/feed/',
+    foundedYear: 1990,
+    color: '#059669',
+    socialLinks: {
+      facebook: 'https://facebook.com/richmondreviewsf',
+    },
+    stats: {
+      founded: 1990,
+      languages: ['English'],
+      frequency: 'Monthly',
+    },
+  },
+  {
+    id: '9',
+    name: 'Sunset Beacon',
+    slug: 'sunset-beacon',
+    community: 'Sunset District',
+    neighborhood: 'Sunset District',
+    category: ['neighborhood'],
+    description: 'Neighborhood newspaper serving San Francisco\'s Sunset District, sister publication to the Richmond Review.',
+    longDescription: `The Sunset Beacon is a neighborhood newspaper serving San Francisco's Sunset District. A sister publication to the Richmond Review and part of the SF Media Co. family, the Sunset Beacon covers local news, community events, and neighborhood issues for Sunset residents.
+
+The paper connects the diverse Sunset District community with coverage of local schools, businesses, parks, and civic matters.`,
+    url: 'https://sfrichmondreview.com/sunset-beacon/',
+    rssUrl: 'https://sfrichmondreview.com/category/sunset-beacon/feed/',
+    foundedYear: 1990,
+    color: '#d97706',
+    socialLinks: {
+      facebook: 'https://facebook.com/sunsetbeaconsf',
+    },
+    stats: {
+      founded: 1990,
+      languages: ['English'],
+      frequency: 'Monthly',
+    },
+  },
+  {
+    id: '10',
+    name: 'Sing Tao Daily',
+    slug: 'sing-tao',
+    community: 'Chinatown · Chinese',
+    neighborhood: 'Chinatown',
+    category: ['ethnic'],
+    description: 'Chinese-language daily newspaper serving the Bay Area\'s Chinese community with local and international news.',
+    longDescription: `Sing Tao Daily is a leading Chinese-language newspaper serving the Bay Area's Chinese community. The publication provides comprehensive coverage of local San Francisco news alongside international news from China and Asia.
+
+Sing Tao serves as a vital information source for Chinese-speaking residents, covering community events, immigration issues, and cultural affairs.`,
+    url: 'https://www.singtaousa.com',
+    rssUrl: 'https://www.singtaousa.com/feed/',
+    foundedYear: 1965,
+    color: '#dc2626',
+    socialLinks: {
+      facebook: 'https://facebook.com/singtaousa',
+    },
+    stats: {
+      founded: 1965,
+      languages: ['Chinese', 'English'],
+      frequency: 'Daily',
+    },
+  },
+  {
+    id: '11',
+    name: 'Wind Newspaper',
+    slug: 'wind-newspaper',
+    community: 'Visitacion Valley · Filipino',
+    neighborhood: 'Visitacion Valley',
+    category: ['ethnic', 'neighborhood'],
+    description: 'Community newspaper serving Visitacion Valley and the Filipino community in San Francisco.',
+    longDescription: `Wind Newspaper is a community publication serving the Visitacion Valley neighborhood and the broader Filipino community in San Francisco. The paper covers local news, community events, and issues important to southeast San Francisco residents.
+
+Wind Newspaper amplifies voices from one of San Francisco's most diverse neighborhoods, providing coverage often overlooked by mainstream media.`,
+    url: 'https://windnewspaper.com',
+    rssUrl: 'https://windnewspaper.com/feed/',
+    foundedYear: 2000,
+    color: '#7c3aed',
+    socialLinks: {
+      facebook: 'https://facebook.com/windnewspaper',
+    },
+    stats: {
+      founded: 2000,
+      languages: ['English', 'Tagalog'],
+      frequency: 'Monthly',
+    },
+  },
+  {
+    id: '12',
+    name: '48 Hills',
+    slug: '48-hills',
+    community: 'Citywide · Progressive',
+    neighborhood: 'Citywide',
+    category: ['investigative'],
+    description: 'Progressive online news and culture magazine covering San Francisco politics, arts, and nightlife.',
+    longDescription: `48 Hills is San Francisco's progressive online news and culture magazine. Founded by veteran journalist Tim Redmond, 48 Hills provides in-depth political coverage, investigative reporting, and arts and culture criticism from a progressive perspective.
+
+The publication fills a vital role in San Francisco's media landscape, covering stories about housing, development, labor, and local politics that other outlets often miss.`,
+    url: 'https://48hills.org',
+    rssUrl: 'https://48hills.org/feed/',
+    foundedYear: 2013,
+    color: '#ea580c',
+    socialLinks: {
+      twitter: 'https://twitter.com/48abordo',
+      facebook: 'https://facebook.com/48hillssf',
+      instagram: 'https://instagram.com/48hillssf',
+    },
+    stats: {
+      founded: 2013,
+      languages: ['English'],
+      frequency: 'Daily',
+    },
+  },
+  {
+    id: '13',
+    name: 'Broke-Ass Stuart',
+    slug: 'broke-ass-stuart',
+    community: 'Citywide · Alternative',
+    neighborhood: 'Citywide',
+    category: ['neighborhood'],
+    description: 'Alternative culture and lifestyle site celebrating San Francisco\'s creative, budget-conscious spirit.',
+    longDescription: `Broke-Ass Stuart is an alternative culture and lifestyle publication that celebrates San Francisco's creative, diverse, and budget-conscious community. Founded by Stuart Schuffman, the site covers local events, food, nightlife, and culture with an irreverent voice.
+
+The publication champions the San Francisco that exists beyond the tech boom—artists, musicians, service workers, and longtime residents who make the city vibrant.`,
+    url: 'https://brokeassstuart.com',
+    rssUrl: 'https://brokeassstuart.com/feed/',
+    foundedYear: 2008,
+    color: '#be185d',
+    socialLinks: {
+      twitter: 'https://twitter.com/babordo',
+      facebook: 'https://facebook.com/brokeassstuart',
+      instagram: 'https://instagram.com/brokeassstuart',
+    },
+    stats: {
+      founded: 2008,
+      languages: ['English'],
+      frequency: 'Daily',
+    },
+  },
+  {
+    id: '14',
+    name: 'Ingleside Light',
+    slug: 'ingleside-light',
+    community: 'Ingleside',
+    neighborhood: 'Ingleside',
+    category: ['neighborhood'],
+    description: 'Hyperlocal news covering San Francisco\'s Ingleside neighborhood and surrounding communities.',
+    longDescription: `The Ingleside Light is a hyperlocal news publication dedicated to covering San Francisco's Ingleside neighborhood and surrounding areas including Oceanview, Merced Heights, and the Excelsior.
+
+The publication focuses on community news, local events, neighborhood development, and the stories of Ingleside residents, filling a crucial gap in coverage for this often-overlooked part of the city.`,
+    url: 'https://inglesidelight.com',
+    rssUrl: 'https://inglesidelight.com/feed/',
+    foundedYear: 2018,
+    color: '#0891b2',
+    socialLinks: {
+      twitter: 'https://twitter.com/inglesidelight',
+      facebook: 'https://facebook.com/inglesidelight',
+    },
+    stats: {
+      founded: 2018,
+      languages: ['English'],
+      frequency: 'Weekly',
+    },
+  },
 ]
 
 export const memberCategories: FilterOption[] = [

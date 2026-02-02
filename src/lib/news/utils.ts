@@ -34,6 +34,7 @@ export function getMemberMeta(slug: string): MemberMeta {
   }
 
   // Map slug to logo path (consistent naming convention)
+  // Empty string means no logo available yet
   const logoMap: { [key: string]: string } = {
     'el-tecolote': '/images/publishers/el-tecolote.png',
     'mission-local': '/images/publishers/mission-local.png',
@@ -41,7 +42,14 @@ export function getMemberMeta(slug: string): MemberMeta {
     'sf-public-press': '/images/publishers/sf-public-press.png',
     'bay-area-reporter': '/images/publishers/bayarea-reporter.png',
     'nichi-bei': '',
+    'j-weekly': '',
+    'richmond-review': '',
+    'sunset-beacon': '',
     'sing-tao': '/images/publishers/sing-tao.png',
+    'wind-newspaper': '',
+    '48-hills': '',
+    'broke-ass-stuart': '',
+    'ingleside-light': '',
     'potrero-view': '/images/publishers/potrero-view.png',
   }
 
