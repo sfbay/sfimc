@@ -238,7 +238,7 @@ The paper connects the diverse Sunset District community with coverage of local 
 
 Wind Newspaper amplifies voices from one of San Francisco's most diverse neighborhoods, providing coverage often overlooked by mainstream media.`,
     url: 'https://windnewspaper.com',
-    rssUrl: 'https://windnewspaper.com/feed/',
+    // No RSS feed available - site built on Next.js without feed endpoint
     foundedYear: 2000,
     color: '#7c3aed',
     socialLinks: {
@@ -288,7 +288,7 @@ The publication fills a vital role in San Francisco's media landscape, covering 
 
 The publication champions the San Francisco that exists beyond the tech boom—artists, musicians, service workers, and longtime residents who make the city vibrant.`,
     url: 'https://brokeassstuart.com',
-    rssUrl: 'https://brokeassstuart.com/feed/',
+    // No RSS feed available - migrated to Beehiiv with Cloudflare protection
     foundedYear: 2008,
     color: '#be185d',
     socialLinks: {

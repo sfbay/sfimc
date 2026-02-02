@@ -28,6 +28,7 @@ import {
 // Fallback member feeds if Payload query fails or is empty
 // These match the members we know have working feeds
 const FALLBACK_FEEDS: MemberFeed[] = [
+  // El Tecolote - Cloudflare protected, RSS not accessible programmatically
   {
     memberId: 'mission-local',
     memberName: 'Mission Local',
@@ -44,7 +45,44 @@ const FALLBACK_FEEDS: MemberFeed[] = [
     memberId: 'sf-public-press',
     memberName: 'SF Public Press',
     memberSlug: 'sf-public-press',
-    rssUrl: 'https://www.sfpublicpress.org/feed/',
+    rssUrl: 'https://sfpublicpress.org/feed/',
+  },
+  // Bay Area Reporter - Cloudflare protected, RSS not accessible programmatically
+  {
+    memberId: 'nichi-bei',
+    memberName: 'Nichi Bei',
+    memberSlug: 'nichi-bei',
+    rssUrl: 'https://nichibei.org/feed/',
+  },
+  {
+    memberId: 'j-weekly',
+    memberName: 'J. The Jewish News of Northern California',
+    memberSlug: 'j-weekly',
+    rssUrl: 'https://jweekly.com/feed/',
+  },
+  {
+    memberId: 'richmond-review',
+    memberName: 'Richmond Review',
+    memberSlug: 'richmond-review',
+    rssUrl: 'https://sfrichmondreview.com/feed/',
+  },
+  {
+    memberId: 'sunset-beacon',
+    memberName: 'Sunset Beacon',
+    memberSlug: 'sunset-beacon',
+    rssUrl: 'https://sfrichmondreview.com/category/sunset-beacon/feed/',
+  },
+  {
+    memberId: '48-hills',
+    memberName: '48 Hills',
+    memberSlug: '48-hills',
+    rssUrl: 'https://48hills.org/feed/',
+  },
+  {
+    memberId: 'ingleside-light',
+    memberName: 'Ingleside Light',
+    memberSlug: 'ingleside-light',
+    rssUrl: 'https://inglesidelight.com/feed/',
   },
 ]
 
