@@ -28,7 +28,12 @@ import {
 // Fallback member feeds if Payload query fails or is empty
 // These match the members we know have working feeds
 const FALLBACK_FEEDS: MemberFeed[] = [
-  // El Tecolote - Cloudflare protected, RSS not accessible programmatically
+  {
+    memberId: 'el-tecolote',
+    memberName: 'El Tecolote',
+    memberSlug: 'el-tecolote',
+    rssUrl: 'https://eltecolote.org/content/en/feed/',
+  },
   {
     memberId: 'mission-local',
     memberName: 'Mission Local',
@@ -47,7 +52,12 @@ const FALLBACK_FEEDS: MemberFeed[] = [
     memberSlug: 'sf-public-press',
     rssUrl: 'https://sfpublicpress.org/feed/',
   },
-  // Bay Area Reporter - Cloudflare protected, RSS not accessible programmatically
+  {
+    memberId: 'bay-area-reporter',
+    memberName: 'Bay Area Reporter',
+    memberSlug: 'bay-area-reporter',
+    rssUrl: 'https://www.ebar.com/rss/23/News',
+  },
   {
     memberId: 'nichi-bei',
     memberName: 'Nichi Bei',

@@ -17,7 +17,7 @@ export const members: Member[] = [
 
 The newspaper continues its partnership with SF State's journalism program, providing hands-on training for the next generation of community journalists while serving as an essential information source for the Mission District and beyond.`,
     url: 'https://eltecolote.org',
-    rssUrl: 'https://eltecolote.org/feed/',
+    rssUrl: 'https://eltecolote.org/content/en/feed/',
     foundedYear: 1970,
     color: '#dcae27',
     socialLinks: {
@@ -115,7 +115,7 @@ The Bay View has been at the forefront of environmental justice reporting, parti
     description: 'The nation\'s oldest continuously published LGBTQ+ newspaper, serving the Bay Area since 1971.',
     longDescription: `The Bay Area Reporter (B.A.R.) is the nation's oldest continuously published LGBTQ+ newspaper. Founded in 1971, the B.A.R. has been documenting and serving the Bay Area's LGBTQ+ community for over five decades.`,
     url: 'https://ebar.com',
-    rssUrl: 'https://ebar.com/feed/',
+    rssUrl: 'https://www.ebar.com/rss/23/News',
     foundedYear: 1971,
     color: '#c41e6a',
     socialLinks: {
