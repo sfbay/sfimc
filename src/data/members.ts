@@ -227,30 +227,6 @@ The paper connects the diverse Sunset District community with coverage of local 
     },
   },
   {
-    id: '10',
-    name: 'Sing Tao Daily',
-    slug: 'sing-tao',
-    community: 'Chinatown · Chinese',
-    neighborhood: 'Chinatown',
-    category: ['ethnic'],
-    description: 'Chinese-language daily newspaper serving the Bay Area\'s Chinese community with local and international news.',
-    longDescription: `Sing Tao Daily is a leading Chinese-language newspaper serving the Bay Area's Chinese community. The publication provides comprehensive coverage of local San Francisco news alongside international news from China and Asia.
-
-Sing Tao serves as a vital information source for Chinese-speaking residents, covering community events, immigration issues, and cultural affairs.`,
-    url: 'https://www.singtaousa.com',
-    rssUrl: 'https://www.singtaousa.com/feed/',
-    foundedYear: 1965,
-    color: '#dc2626',
-    socialLinks: {
-      facebook: 'https://facebook.com/singtaousa',
-    },
-    stats: {
-      founded: 1965,
-      languages: ['Chinese', 'English'],
-      frequency: 'Daily',
-    },
-  },
-  {
     id: '11',
     name: 'Wind Newspaper',
     slug: 'wind-newspaper',

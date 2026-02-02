@@ -45,7 +45,6 @@ export function getMemberMeta(slug: string): MemberMeta {
     'j-weekly': '',
     'richmond-review': '',
     'sunset-beacon': '',
-    'sing-tao': '/images/publishers/sing-tao.png',
     'wind-newspaper': '',
     '48-hills': '',
     'broke-ass-stuart': '',
