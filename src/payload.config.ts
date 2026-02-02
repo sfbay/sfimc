@@ -8,6 +8,8 @@ import { fileURLToPath } from 'url'
 import { Members } from './payload/collections/Members'
 import { Stories } from './payload/collections/Stories'
 import { NewsItems } from './payload/collections/NewsItems'
+import { Subscribers } from './payload/collections/Subscribers'
+import { Newsletters } from './payload/collections/Newsletters'
 import { Pages } from './payload/collections/Pages'
 import { Media } from './payload/collections/Media'
 import { Users } from './payload/collections/Users'
@@ -20,8 +22,10 @@ export default buildConfig({
     user: Users.slug,
     meta: {
       titleSuffix: ' | SFIMC Admin',
-      favicon: '/favicon.ico',
-      ogImage: '/og-image.png',
+      icons: [{ url: '/favicon.ico' }],
+      openGraph: {
+        images: [{ url: '/og-image.png' }],
+      },
     },
     components: {
       graphics: {
@@ -35,6 +39,8 @@ export default buildConfig({
     Members,
     Stories,
     NewsItems,
+    Subscribers,
+    Newsletters,
     Pages,
     Media,
     Users,

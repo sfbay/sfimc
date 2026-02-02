@@ -70,6 +70,8 @@ export interface Config {
     members: Member;
     stories: Story;
     'news-items': NewsItem;
+    subscribers: Subscriber;
+    newsletters: Newsletter;
     pages: Page;
     media: Media;
     users: User;
@@ -83,6 +85,8 @@ export interface Config {
     members: MembersSelect<false> | MembersSelect<true>;
     stories: StoriesSelect<false> | StoriesSelect<true>;
     'news-items': NewsItemsSelect<false> | NewsItemsSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    newsletters: NewslettersSelect<false> | NewslettersSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -262,7 +266,11 @@ export interface NewsItem {
   title: string;
   url: string;
   description?: string | null;
-  member: number | Member;
+  member?: (number | null) | Member;
+  /**
+   * Cached member slug for faster lookups
+   */
+  memberSlug?: string | null;
   pubDate: string;
   /**
    * Unique identifier for deduplication
@@ -273,9 +281,101 @@ export interface NewsItem {
    */
   image?: string | null;
   /**
+   * Auto-detected or from RSS categories
+   */
+  category?: string | null;
+  /**
+   * Feature in newsletter or homepage
+   */
+  featured?: boolean | null;
+  /**
    * Has this been curated into an Impact Story?
    */
   promoted?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Newsletter subscribers
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  email: string;
+  status: 'active' | 'unsubscribed' | 'bounced' | 'pending';
+  /**
+   * ID from Resend for sync
+   */
+  resendContactId?: string | null;
+  subscribedAt: string;
+  unsubscribedAt?: string | null;
+  /**
+   * Newsletter types this subscriber receives
+   */
+  tags?: ('weekly-digest' | 'breaking-news' | 'policy-updates' | 'events')[] | null;
+  /**
+   * Where did this subscriber sign up? (e.g., footer, news-page, homepage)
+   */
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Newsletter drafts and sent emails
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletters".
+ */
+export interface Newsletter {
+  id: number;
+  subject: string;
+  status: 'draft' | 'ready' | 'scheduled' | 'sending' | 'sent' | 'failed';
+  type: 'weekly-digest' | 'breaking-news' | 'policy-update' | 'custom';
+  /**
+   * Custom intro text at the top of the newsletter
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Stories to include in this newsletter (order matters)
+   */
+  curatedItems?: (number | NewsItem)[] | null;
+  /**
+   * Main story to highlight at the top
+   */
+  featuredItem?: (number | null) | NewsItem;
+  scheduledFor?: string | null;
+  sentAt?: string | null;
+  recipientCount?: number | null;
+  /**
+   * Batch ID from Resend for tracking
+   */
+  resendBatchId?: string | null;
+  openRate?: number | null;
+  clickRate?: number | null;
+  /**
+   * Date range for auto-generated content
+   */
+  dateRange?: {
+    from?: string | null;
+    to?: string | null;
+  };
+  error?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -377,6 +477,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news-items';
         value: number | NewsItem;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: number | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'newsletters';
+        value: number | Newsletter;
       } | null)
     | ({
         relationTo: 'pages';
@@ -486,10 +594,55 @@ export interface NewsItemsSelect<T extends boolean = true> {
   url?: T;
   description?: T;
   member?: T;
+  memberSlug?: T;
   pubDate?: T;
   guid?: T;
   image?: T;
+  category?: T;
+  featured?: T;
   promoted?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  status?: T;
+  resendContactId?: T;
+  subscribedAt?: T;
+  unsubscribedAt?: T;
+  tags?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletters_select".
+ */
+export interface NewslettersSelect<T extends boolean = true> {
+  subject?: T;
+  status?: T;
+  type?: T;
+  intro?: T;
+  curatedItems?: T;
+  featuredItem?: T;
+  scheduledFor?: T;
+  sentAt?: T;
+  recipientCount?: T;
+  resendBatchId?: T;
+  openRate?: T;
+  clickRate?: T;
+  dateRange?:
+    | T
+    | {
+        from?: T;
+        to?: T;
+      };
+  error?: T;
   updatedAt?: T;
   createdAt?: T;
 }

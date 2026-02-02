@@ -3,8 +3,26 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, ExternalLink, Share2, Calendar, Building2 } from 'lucide-react'
 import { ImpactTag } from '@/components/impact/ImpactTag'
 
+// Type for detailed impact stories
+interface DetailedImpactStory {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  member: { id: string; name: string; slug: string; color: string }
+  collaborators: { name: string; slug: string }[]
+  impactType: 'policy' | 'accountability' | 'resources' | 'recognition' | 'community'
+  impactDescription: string
+  impactTimeline: { date: string; event: string }[]
+  publishedDate: string
+  originalUrl: string
+  featured?: boolean
+  image?: { url: string; alt: string } | null
+}
+
 // Placeholder data - will be replaced with Payload queries
-const stories = [
+const stories: DetailedImpactStory[] = [
   {
     id: '1',
     title: 'Investigation leads to new city oversight requirements for contracting',
@@ -196,11 +214,11 @@ export default async function ImpactStoryPage({ params }: PageProps) {
           <div className="grid lg:grid-cols-[2fr_1fr] gap-12">
             {/* Story Content */}
             <div>
-              {story.image && (
+              {story.image && story.image.url && (
                 <div className="aspect-video bg-[var(--color-mist)] rounded-2xl mb-8 overflow-hidden">
                   <img
                     src={story.image.url}
-                    alt={story.image.alt}
+                    alt={story.image.alt || ''}
                     className="w-full h-full object-cover"
                   />
                 </div>

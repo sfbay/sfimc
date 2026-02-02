@@ -1,10 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
-import { Send, Mail, ArrowRight, ExternalLink } from 'lucide-react'
+import { ArrowRight, ExternalLink, Mail } from 'lucide-react'
 import { members } from '@/data/members'
-import { cn } from '@/lib/utils'
+import { SubscribeForm } from '@/components/newsletter'
 
 const footerLinks = {
   coalition: [
@@ -66,21 +65,6 @@ const socialLinks = [
 ]
 
 export function Footer() {
-  const [email, setEmail] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubscribed, setIsSubscribed] = useState(false)
-
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setIsSubmitting(true)
-    // Simulate API call - replace with actual newsletter signup
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsSubscribed(true)
-    setIsSubmitting(false)
-  }
-
   return (
     <footer className="bg-[var(--color-ink)] text-[var(--color-paper)] relative overflow-hidden">
       {/* Background decoration */}
@@ -114,71 +98,8 @@ export function Footer() {
             </div>
 
             {/* Newsletter Form */}
-            <div>
-              {isSubscribed ? (
-                <div
-                  className="bg-[var(--color-teal)]/20 border border-[var(--color-teal)]/30 rounded-2xl p-8 text-center"
-                  role="status"
-                  aria-live="polite"
-                >
-                  <div className="w-12 h-12 bg-[var(--color-teal)] rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">You&apos;re subscribed!</h3>
-                  <p className="text-[var(--color-warm-gray)]">
-                    Check your inbox for a confirmation email.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleNewsletterSubmit} className="space-y-4" aria-label="Newsletter signup">
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <label htmlFor="newsletter-email" className="sr-only">
-                      Email address
-                    </label>
-                    <input
-                      id="newsletter-email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
-                      required
-                      aria-required="true"
-                      aria-describedby="newsletter-privacy"
-                      autoComplete="email"
-                      className="flex-1 px-5 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-[var(--color-warm-gray)] text-base focus:outline-none focus:border-[var(--color-dot)] focus:ring-2 focus:ring-[var(--color-dot)]/20 transition-all"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      aria-disabled={isSubmitting}
-                      className={cn(
-                        'btn btn-dot btn-lg whitespace-nowrap',
-                        isSubmitting && 'opacity-70 cursor-not-allowed'
-                      )}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
-                          <span>Subscribing...</span>
-                        </>
-                      ) : (
-                        <>
-                          Subscribe
-                          <Send className="w-4 h-4" aria-hidden="true" />
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <p id="newsletter-privacy" className="text-xs text-[var(--color-warm-gray)]">
-                    No spam, unsubscribe anytime. We respect your privacy.
-                  </p>
-                </form>
-              )}
+            <div id="newsletter">
+              <SubscribeForm source="footer" variant="default" />
             </div>
           </div>
         </div>

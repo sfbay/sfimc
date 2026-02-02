@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { timingSafeEqual } from 'crypto'
 import {
   fetchAllMemberFeeds,
   extractExcerpt,
@@ -7,68 +8,111 @@ import {
   deduplicateByGuid,
   type MemberFeed,
 } from '@/lib/rss/poller'
+import { getPayloadClient } from '@/lib/payload/client'
+import {
+  extractCategory,
+  sanitizeText,
+  sanitizeUrl,
+  RECENT_STORIES_WINDOW_HOURS,
+} from '@/lib/news'
 
-// This API route is designed to be called by an external cron service
-// (e.g., GitHub Actions, Vercel Cron) to poll RSS feeds and update the database
+/**
+ * RSS Poll API Route
+ *
+ * Designed to be called by an external cron service (GitHub Actions, Vercel Cron)
+ * to poll member RSS feeds and persist to Payload CMS.
+ *
+ * Security: Requires CRON_SECRET query parameter.
+ */
 
-// Placeholder member feeds - will be replaced with Payload queries
-const memberFeeds: MemberFeed[] = [
+// Fallback member feeds if Payload query fails or is empty
+// These match the members we know have working feeds
+const FALLBACK_FEEDS: MemberFeed[] = [
   {
-    memberId: '1',
-    memberName: 'El Tecolote',
-    memberSlug: 'el-tecolote',
-    rssUrl: 'https://eltecolote.org/feed/',
-  },
-  {
-    memberId: '2',
+    memberId: 'mission-local',
     memberName: 'Mission Local',
     memberSlug: 'mission-local',
     rssUrl: 'https://missionlocal.org/feed/',
   },
   {
-    memberId: '3',
+    memberId: 'the-bay-view',
     memberName: 'The Bay View',
     memberSlug: 'the-bay-view',
     rssUrl: 'https://sfbayview.com/feed/',
   },
   {
-    memberId: '4',
+    memberId: 'sf-public-press',
     memberName: 'SF Public Press',
     memberSlug: 'sf-public-press',
-    rssUrl: 'https://sfpublicpress.org/feed/',
-  },
-  {
-    memberId: '5',
-    memberName: 'Bay Area Reporter',
-    memberSlug: 'bay-area-reporter',
-    rssUrl: 'https://ebar.com/feed/',
-  },
-  {
-    memberId: '6',
-    memberName: 'Nichi Bei',
-    memberSlug: 'nichi-bei',
-    rssUrl: 'https://nichibei.org/feed/',
+    rssUrl: 'https://www.sfpublicpress.org/feed/',
   },
 ]
 
+/**
+ * Constant-time string comparison to prevent timing attacks
+ */
+function constantTimeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false
+  try {
+    return timingSafeEqual(Buffer.from(a), Buffer.from(b))
+  } catch {
+    return false
+  }
+}
+
 export async function GET(request: Request) {
-  // Verify cron secret for security - always require in production
+  // Verify cron secret for security
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
 
-  // In production, CRON_SECRET must be set
-  if (process.env.NODE_ENV === 'production' && !process.env.CRON_SECRET) {
+  // CRON_SECRET must always be set for security
+  if (!process.env.CRON_SECRET) {
     console.error('[RSS Poll] CRON_SECRET is not configured')
     return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
   }
 
-  // Validate secret if configured
-  if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET) {
+  // Validate secret using constant-time comparison to prevent timing attacks
+  if (!secret || !constantTimeEqual(secret, process.env.CRON_SECRET)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const startTime = Date.now()
+  console.log(`[RSS Poll] Starting feed poll at ${new Date().toISOString()}`)
+
   try {
-    console.log(`[RSS Poll] Starting feed poll at ${new Date().toISOString()}`)
+    const payload = await getPayloadClient()
+
+    // Try to fetch members with RSS URLs from Payload
+    let memberFeeds: MemberFeed[] = []
+
+    try {
+      const membersResult = await payload.find({
+        collection: 'members',
+        where: {
+          rssUrl: { exists: true },
+        },
+        limit: 100,
+      })
+
+      memberFeeds = membersResult.docs
+        .filter((m) => m.rssUrl)
+        .map((m) => ({
+          memberId: String(m.id),
+          memberName: m.name as string,
+          memberSlug: m.slug as string,
+          rssUrl: m.rssUrl as string,
+        }))
+
+      console.log(`[RSS Poll] Found ${memberFeeds.length} members with RSS feeds in Payload`)
+    } catch (err) {
+      console.warn('[RSS Poll] Failed to fetch members from Payload, using fallback:', err)
+    }
+
+    // Use fallback if no members found
+    if (memberFeeds.length === 0) {
+      console.log('[RSS Poll] Using fallback feed list')
+      memberFeeds = FALLBACK_FEEDS
+    }
 
     // Fetch all feeds
     const { items, errors } = await fetchAllMemberFeeds(memberFeeds)
@@ -79,56 +123,91 @@ export async function GET(request: Request) {
     }
 
     // Filter to recent items (last 7 days)
-    const recentItems = items.filter((item) => isWithinTimeWindow(item.pubDate, 168))
+    const recentItems = items.filter((item) => isWithinTimeWindow(item.pubDate, RECENT_STORIES_WINDOW_HOURS))
 
-    // Deduplicate
+    // Deduplicate by GUID
     const uniqueItems = deduplicateByGuid(recentItems)
 
-    // Process items for storage
-    const processedItems = uniqueItems.map((item) => ({
-      guid: item.guid,
-      title: item.title,
-      url: item.link,
-      excerpt: extractExcerpt(item.description || item.content),
-      imageUrl: item.enclosure?.url || extractImageFromContent(item.content),
-      pubDate: item.pubDate,
-      memberId: item.memberId,
-      memberSlug: item.memberSlug,
-    }))
+    // Track upsert stats
+    let created = 0
+    let updated = 0
+    let skipped = 0
+    const upsertErrors: { guid: string; error: string }[] = []
 
-    // TODO: Upsert to Payload CMS NewsItems collection
-    // This would look something like:
-    // for (const item of processedItems) {
-    //   await payload.create({
-    //     collection: 'news-items',
-    //     data: {
-    //       guid: item.guid,
-    //       title: item.title,
-    //       url: item.url,
-    //       excerpt: item.excerpt,
-    //       imageUrl: item.imageUrl,
-    //       pubDate: item.pubDate,
-    //       member: item.memberId,
-    //     },
-    //   })
-    // }
+    // Upsert each item to Payload
+    for (const item of uniqueItems) {
+      try {
+        // Check if item already exists by GUID
+        const existing = await payload.find({
+          collection: 'news-items',
+          where: { guid: { equals: item.guid } },
+          limit: 1,
+        })
 
-    console.log(`[RSS Poll] Completed. Processed ${processedItems.length} items from ${memberFeeds.length - errors.length} feeds`)
+        const category = extractCategory(item.categories, item.title)
+        const rawImageUrl = item.enclosure?.url || extractImageFromContent(item.content)
+        const imageUrl = rawImageUrl ? sanitizeUrl(rawImageUrl) : undefined
+
+        // Sanitize all text content to prevent XSS
+        const newsItemData = {
+          guid: item.guid,
+          title: sanitizeText(item.title),
+          url: sanitizeUrl(item.link) || item.link, // Keep original if sanitization fails
+          description: sanitizeText(extractExcerpt(item.description || item.content, 200)),
+          memberSlug: item.memberSlug,
+          pubDate: new Date(item.pubDate).toISOString(),
+          image: imageUrl || undefined,
+          category,
+        }
+
+        if (existing.docs.length > 0) {
+          // Item exists - skip (or update if we want to refresh content)
+          skipped++
+        } else {
+          // Create new item
+          await payload.create({
+            collection: 'news-items',
+            data: newsItemData,
+          })
+          created++
+        }
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+        console.error(`[RSS Poll] Failed to upsert item ${item.guid}:`, errorMessage)
+        upsertErrors.push({ guid: item.guid, error: errorMessage })
+      }
+    }
+
+    const duration = Date.now() - startTime
+    console.log(
+      `[RSS Poll] Completed in ${duration}ms. Created: ${created}, Skipped: ${skipped}, Errors: ${upsertErrors.length}`
+    )
 
     return NextResponse.json({
       success: true,
       timestamp: new Date().toISOString(),
+      duration: `${duration}ms`,
       stats: {
         totalFeeds: memberFeeds.length,
         successfulFeeds: memberFeeds.length - errors.length,
         failedFeeds: errors.length,
-        itemsProcessed: processedItems.length,
-        itemsFiltered: items.length - recentItems.length,
+        itemsFetched: items.length,
+        itemsAfterFilter: recentItems.length,
+        itemsAfterDedupe: uniqueItems.length,
+        created,
+        updated,
+        skipped,
+        upsertErrors: upsertErrors.length,
       },
-      errors: errors.length > 0 ? errors : undefined,
+      feedErrors: errors.length > 0 ? errors : undefined,
+      upsertErrors: upsertErrors.length > 0 ? upsertErrors.slice(0, 10) : undefined,
       // Include sample of recent items for debugging (not in production)
       ...(process.env.NODE_ENV === 'development' && {
-        sampleItems: processedItems.slice(0, 5),
+        sampleItems: uniqueItems.slice(0, 3).map((i) => ({
+          title: i.title,
+          guid: i.guid,
+          memberSlug: i.memberSlug,
+        })),
       }),
     })
   } catch (error) {

@@ -2,8 +2,23 @@ import Link from 'next/link'
 import { ImpactCard } from '@/components/impact/ImpactCard'
 import { ImpactTag } from '@/components/impact/ImpactTag'
 
+// Type for impact stories
+interface ImpactStory {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  member: { name: string; slug: string }
+  impactType: 'policy' | 'accountability' | 'resources' | 'recognition' | 'community'
+  impactDescription: string
+  publishedDate: string
+  url: string
+  featured?: boolean
+  image?: { url: string; alt: string }
+}
+
 // Placeholder data - will be replaced with Payload queries
-const stories = [
+const stories: ImpactStory[] = [
   {
     id: '1',
     title: 'Investigation leads to new city oversight requirements for contracting',
@@ -15,6 +30,7 @@ const stories = [
     publishedDate: '2025-12-15',
     url: 'https://sfpublicpress.org',
     featured: true,
+    image: { url: '/images/placeholder-impact.jpg', alt: 'City Hall oversight investigation' },
   },
   {
     id: '2',

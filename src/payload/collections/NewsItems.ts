@@ -4,19 +4,21 @@ export const NewsItems: CollectionConfig = {
   slug: 'news-items',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'member', 'pubDate', 'promoted'],
+    defaultColumns: ['title', 'member', 'pubDate', 'featured', 'promoted'],
     description: 'Aggregated content from member RSS feeds',
     group: 'Aggregator',
   },
   access: {
     read: () => true,
     create: () => true, // RSS poller can create
+    update: () => true, // Allow updates for deduplication
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      index: true,
     },
     {
       name: 'url',
@@ -33,8 +35,18 @@ export const NewsItems: CollectionConfig = {
       name: 'member',
       type: 'relationship',
       relationTo: 'members',
-      required: true,
       label: 'Source Publication',
+      index: true,
+    },
+    {
+      name: 'memberSlug',
+      type: 'text',
+      label: 'Member Slug',
+      admin: {
+        description: 'Cached member slug for faster lookups',
+        position: 'sidebar',
+      },
+      index: true,
     },
     {
       name: 'pubDate',
@@ -44,6 +56,7 @@ export const NewsItems: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+      index: true,
     },
     {
       name: 'guid',
@@ -55,6 +68,7 @@ export const NewsItems: CollectionConfig = {
         position: 'sidebar',
         description: 'Unique identifier for deduplication',
       },
+      index: true,
     },
     {
       name: 'image',
@@ -62,6 +76,25 @@ export const NewsItems: CollectionConfig = {
       label: 'Image URL',
       admin: {
         description: 'Thumbnail from RSS feed (if available)',
+      },
+    },
+    {
+      name: 'category',
+      type: 'text',
+      label: 'Category',
+      admin: {
+        description: 'Auto-detected or from RSS categories',
+      },
+      index: true,
+    },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Featured',
+      admin: {
+        position: 'sidebar',
+        description: 'Feature in newsletter or homepage',
       },
     },
     {

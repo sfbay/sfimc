@@ -12,7 +12,7 @@ export interface RSSItem {
   enclosure?: {
     url: string
     type?: string
-    length?: string
+    length?: string | number
   }
 }
 
@@ -58,7 +58,7 @@ export async function fetchFeed(url: string): Promise<RSSFeed | null> {
         description: item.contentSnippet || item.summary,
         content: (item as any).contentEncoded || item.content,
         pubDate: item.pubDate || item.isoDate || new Date().toISOString(),
-        creator: (item as any).creator || item.author,
+        creator: (item as any).creator || (item as any).author,
         categories: item.categories,
         enclosure: item.enclosure
           ? {
